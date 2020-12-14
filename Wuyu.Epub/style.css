@@ -1,0 +1,483 @@
+/*预设文本样式*/
+
+body {
+    padding: 0;
+    margin: 0 1%;
+    line-height: 130%;
+    text-align: justify;
+}
+
+h1 {
+    font-size: 1.65em;
+    line-height: 120%;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0.1em;
+    margin-bottom: 0.4em;
+}
+
+h2 {
+    font-size: 1.25em;
+    line-height: 120%;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 0.95em;
+    line-height: 120%;
+    text-align: center;
+    text-indent: 0em;
+    font-weight: bold;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
+h4 {
+    text-indent: 0em;
+    line-height: 1.1em;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 2em 0 2em 1.7em;
+    font-family: font1;
+}
+
+div {
+    margin: 0px;
+    padding: 0px;
+    text-align: justify;
+}
+
+p {
+    text-indent: 2em;
+    display: block;
+    line-height: 1.3em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
+
+/*图片相关*/
+
+.illus {
+    text-indent: 0em;
+    text-align: center;
+    margin: 0 0 2em 0;
+}
+
+.cover {
+    margin: 0em;
+    padding: 0em;
+    text-indent: 0em;
+    text-align: center;
+}
+
+.coverborder {
+    border-style: none solid none solid;
+    border-color: #000000;
+    border-width: 1px;
+}
+
+
+
+/*预设格式相关样式*/
+
+.right {
+    text-indent: 0em;
+    text-align: right;
+}
+
+.left {
+    text-indent: 0em;
+    text-align: left;
+}
+
+.center {
+    text-indent: 0em;
+    text-align: center;
+}
+
+.zin {
+    text-indent: 0em;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.ita {
+    font-style: italic;
+}
+
+.stress {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+.author {
+    font-size: 1.2em;
+    text-align: right;
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 1em;
+}
+
+.dash-break {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.no-d {
+    text-decoration: none;
+}
+
+.bc {
+    border-collapse: collapse;
+}
+
+.dash-break {
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.message {
+    text-indent: 0em;
+    line-height: 1.2em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
+.meg {
+    font-size: 1.3em;
+    line-height: 1.3em;
+    margin: 0.5em 0;
+}
+
+.lh {
+    line-height: 1em;
+}
+
+.m0 {
+    margin: 0;
+}
+
+
+/*文字大小*/
+
+.em05 {
+    font-size: 0.5em;
+}
+
+.em06 {
+    font-size: 0.6em;
+}
+
+.em07 {
+    font-size: 0.7em;
+}
+
+.em08 {
+    font-size: 0.8em;
+}
+
+.em09 {
+    font-size: 0.9em;
+}
+
+.em11 {
+    font-size: 1.1em;
+}
+
+.em12 {
+    font-size: 1.2em;
+}
+
+.em13 {
+    font-size: 1.3em;
+}
+
+.em14 {
+    font-size: 1.4em;
+}
+
+.em15 {
+    font-size: 1.5em;
+}
+
+.em16 {
+    font-size: 1.6em;
+}
+
+.em17 {
+    font-size: 1.7em;
+}
+
+.em18 {
+    font-size: 1.8em;
+}
+
+.em19 {
+    font-size: 1.9em;
+}
+
+.em20 {
+    font-size: 2em;
+}
+
+.em21 {
+    font-size: 2.1em;
+}
+
+.em22 {
+    font-size: 2.2em;
+}
+
+.em23 {
+    font-size: 2.3em;
+}
+
+.em24 {
+    font-size: 2.4em;
+}
+
+.em25 {
+    font-size: 2.5em;
+}
+
+.em26 {
+    font-size: 2.6em;
+}
+
+.em27 {
+    font-size: 2.7em;
+}
+
+.em28 {
+    font-size: 2.8em;
+}
+
+.em29 {
+    font-size: 2.9em;
+}
+
+.em30 {
+    font-size: 3em;
+}
+
+/*RGB颜色*/
+.red {
+    color: #ff0000;
+}
+
+.green {
+    color: #00ff00;
+}
+
+.blue {
+    color: #0000ff;
+}
+
+.black {
+    color: #000000;
+}
+
+.white {
+    color: #ffffff;
+}
+
+
+/*预设目录样式*/
+
+.contents {
+    font-size: 1.3em;
+    text-indent: 0em;
+    text-align: center;
+    border-bottom: 0.1em dotted #000000;
+    padding: 0.2em 0 0.2em 0;
+    margin-bottom: 0.3em;
+    font-weight: bold;
+}
+
+.mulu {
+    font-weight: normal;
+    font-size: 1.0em;
+    text-indent: 0em;
+    text-align: left;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+/*预设title样式*/
+
+.title-width {
+    width: 100%;
+}
+
+.bb {
+    border-bottom: 3px solid #000000;
+}
+
+.blb {
+    border-left: 3px solid #000000;
+    border-bottom: 3px solid #000000;
+}
+
+.bl {
+    border-left: 3px solid #000000;
+}
+
+.br {
+    border-right: 3px solid #000000;
+}
+
+.brt {
+    border-right: 3px solid #000000;
+    border-top: 3px solid #000000;
+}
+
+.bt {
+    border-top: 3px solid #000000;
+}
+
+.tco1 {
+    color: #FFF;
+    text-shadow: 0 0 3px #E92132;
+}
+/*float*/
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.cl {
+    clear: left;
+}
+
+.cr {
+    clear: right;
+}
+
+.cb {
+    clear: both;
+}
+
+/*对齐*/
+.vt {
+    vertical-align: top;
+}
+
+.vb {
+    vertical-align: bottom;
+}
+
+.vm {
+    vertical-align: middle;
+}
+
+/*多看日文假名显示*/
+
+.jp {
+    font-family: "DK-XIAOBIAOSONG";
+}
+
+
+/*格校着重号*/
+
+
+.dot {
+    -webkit-text-emphasis-style: filled dot;
+    -webkit-text-emphasis-position: under right;
+    -webkit-text-emphasis: circle #000;
+    text-emphasis: circle #000;
+    -webkit-text-emphasis-position: under;
+    text-emphasis-position: under right
+}
+
+
+/*预设注释样式*/
+
+.footnote {
+    height: 1.2em !important;
+    width: auto;
+    border: 0;
+}
+
+.duokan-footnote {
+    height: 1.2em !important;
+    width: auto;
+    border: 0;
+    color: blue; /*这里调整"[注]"符号的字体颜色*/
+}
+
+.duokan-footnote-item {
+    text-indent: 0em;
+    font-family: "DK-SONGTI";
+    text-shadow: 0em 0em 0.1em #000000; /*这里调整注释文字的阴影颜色*/
+    font-size: 0.9em;
+    text-align: left;
+}
+
+sup {
+    font-size: 0.75em;
+    line-height: 1.2;
+    vertical-align: super !important;
+}
+
+/*图片允许放大*/
+
+/*
+html代码：
+
+<div class="duokan-image-single illus"><img alt="图片名" src="../Images/图片名.jpg" /></div>
+*/
+/*多看日文假名显示*/
+
+/*
+请在“查找——正则表达式”模式下进行替换所有操作：
+	查找：([あ-ヶー]+)
+	替换：<span class="jp">\1</span>
+*/
+
+/*
+注释
+
+<a class="duokan-footnote no-d" epub:type="noteref" href="#n1" id="A_1"><sup><img alt="note" class="footnote" src="../Images/note.png" /></sup></a>
+
+<aside epub:type="footnote" id="n1">
+	<ol class="duokan-footnote-content">
+	<li class="duokan-footnote-item" id="n1" value="1">注：此处填写注释内容</li>
+	</ol>
+</aside>
+
+/*以下填写自定义css样式*/
+
+/*字体*/
+@font-face {
+    font-family: "title";
+    src: url(../Fonts/title.ttf);
+}
+
+.title {
+    font-family: title;
+}
+
+@font-face {
+    font-family: "font1";
+    src: url(../Fonts/font.ttf);
+}
+
+.illus1 {
+    font-family: font1;
+}

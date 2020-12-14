@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="manifest" xml:space="preserve">
+    <value>&lt;manifest&gt;
+&lt;item id="cover-image" href="images/cover.jpg" media-type="image/jpeg"/&gt;
+&lt;/manifest&gt;</value>
+  </data>
+  <data name="package" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;package version="2.0" unique-identifier="BookId" xmlns="http://www.idpf.org/2007/opf"&gt;
+  &lt;metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf"&gt;
+    &lt;dc:identifier id="BookId" opf:scheme="UUID"&gt;urn:uuid:63adf839-bed4-41a5-9b05-76f5defd5688&lt;/dc:identifier&gt;
+    &lt;dc:title&gt;穿越时空的龙王与迈向灭亡的魔女之国 I&lt;/dc:title&gt;
+    &lt;dc:creator opf:role="aut" opf:file-as="kid"&gt;舞阪洸&lt;/dc:creator&gt;
+    &lt;dc:language&gt;zh-CN&lt;/dc:language&gt;
+    &lt;dc:date opf:event="modification"&gt;2020-12-10&lt;/dc:date&gt;
+    &lt;dc:subject&gt;轻小说&lt;/dc:subject&gt;
+    &lt;dc:source&gt;轻之国度&lt;/dc:source&gt;
+    &lt;dc:rights&gt;epub制作者：kid(天使动漫论坛)&lt;/dc:rights&gt;
+    &lt;meta name="Sigil version" content="0.8.7" /&gt;
+    &lt;meta name="cover" content="cover.jpg" /&gt;
+  &lt;/metadata&gt;
+  &lt;manifest&gt;
+    &lt;item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/&gt;
+    &lt;item id="title.xhtml" href="Text/title.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="message.xhtml" href="Text/message.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="summary.xhtml" href="Text/summary.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="illus1.xhtml" href="Text/illus1.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="illus2.xhtml" href="Text/illus2.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="illus3.xhtml" href="Text/illus3.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="illus4.xhtml" href="Text/illus4.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="contents-illus.xhtml" href="Text/contents-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="contents.xhtml" href="Text/contents.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="intro1.xhtml" href="Text/intro1.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section001-illus.xhtml" href="Text/Section001-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section002-illus.xhtml" href="Text/Section002-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section003-illus.xhtml" href="Text/Section003-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section004-illus.xhtml" href="Text/Section004-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section005-illus.xhtml" href="Text/Section005-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section006-illus.xhtml" href="Text/Section006-illus.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Postscript.xhtml" href="Text/Postscript.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="style.css" href="Styles/style.css" media-type="text/css"/&gt;
+    &lt;item id="note.png" href="Images/note.png" media-type="image/png"/&gt;
+    &lt;item id="x001.jpg" href="Images/001.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x002.jpg" href="Images/002.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x003.jpg" href="Images/003.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x004.jpg" href="Images/004.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x005.jpg" href="Images/005.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x006.jpg" href="Images/006.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x007.jpg" href="Images/007.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x008.jpg" href="Images/008.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x009.jpg" href="Images/009.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x010.jpg" href="Images/010.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x011.jpg" href="Images/011.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="x012.jpg" href="Images/012.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co1.jpg" href="Images/co1.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co2.jpg" href="Images/co2.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co3.jpg" href="Images/co3.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co4.jpg" href="Images/co4.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co5.jpg" href="Images/co5.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co6.jpg" href="Images/co6.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co7.jpg" href="Images/co7.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="co8.jpg" href="Images/co8.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="s01.jpg" href="Images/s01.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="s02.jpg" href="Images/s02.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="s03.jpg" href="Images/s03.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="s04.jpg" href="Images/s04.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="s05.jpg" href="Images/s05.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="s06.jpg" href="Images/s06.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="cover.jpg" href="Images/cover.jpg" media-type="image/jpeg"/&gt;
+    &lt;item id="cover.xhtml" href="Text/cover.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="intro2.xhtml" href="Text/intro2.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="map.xhtml" href="Text/map.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section001.xhtml" href="Text/Section001.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section002.xhtml" href="Text/Section002.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section003.xhtml" href="Text/Section003.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section004.xhtml" href="Text/Section004.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section005.xhtml" href="Text/Section005.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="Section006.xhtml" href="Text/Section006.xhtml" media-type="application/xhtml+xml"/&gt;
+    &lt;item id="title.ttf" href="Fonts/title.ttf" media-type="application/x-font-ttf"/&gt;
+    &lt;item id="illus1.ttf" href="Fonts/illus1.ttf" media-type="application/x-font-ttf"/&gt;
+  &lt;/manifest&gt;
+  &lt;spine toc="ncx"&gt;
+    &lt;itemref idref="cover.xhtml"/&gt;
+    &lt;itemref idref="title.xhtml"/&gt;
+    &lt;itemref idref="message.xhtml"/&gt;
+    &lt;itemref idref="summary.xhtml"/&gt;
+    &lt;itemref idref="illus1.xhtml"/&gt;
+    &lt;itemref idref="illus2.xhtml"/&gt;
+    &lt;itemref idref="illus3.xhtml"/&gt;
+    &lt;itemref idref="illus4.xhtml"/&gt;
+    &lt;itemref idref="contents-illus.xhtml"/&gt;
+    &lt;itemref idref="contents.xhtml"/&gt;
+    &lt;itemref idref="intro1.xhtml"/&gt;
+    &lt;itemref idref="intro2.xhtml"/&gt;
+    &lt;itemref idref="map.xhtml"/&gt;
+    &lt;itemref idref="Section001-illus.xhtml"/&gt;
+    &lt;itemref idref="Section001.xhtml"/&gt;
+    &lt;itemref idref="Section002-illus.xhtml"/&gt;
+    &lt;itemref idref="Section002.xhtml"/&gt;
+    &lt;itemref idref="Section003-illus.xhtml"/&gt;
+    &lt;itemref idref="Section003.xhtml"/&gt;
+    &lt;itemref idref="Section004-illus.xhtml"/&gt;
+    &lt;itemref idref="Section004.xhtml"/&gt;
+    &lt;itemref idref="Section005-illus.xhtml"/&gt;
+    &lt;itemref idref="Section005.xhtml"/&gt;
+    &lt;itemref idref="Section006-illus.xhtml"/&gt;
+    &lt;itemref idref="Section006.xhtml"/&gt;
+    &lt;itemref idref="Postscript.xhtml"/&gt;
+  &lt;/spine&gt;
+  &lt;guide&gt;
+    &lt;reference type="cover" title="封面" href="Text/cover.xhtml"/&gt;
+  &lt;/guide&gt;
+&lt;/package&gt;</value>
+  </data>
+</root>
