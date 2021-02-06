@@ -1,4 +1,4 @@
-/*Ô¤ÉèÎÄ±¾ÑùÊ½*/
+/*é¢„è®¾æ–‡æœ¬æ ·å¼*/
 
 body {
     padding: 0;
@@ -29,14 +29,14 @@ h3 {
     font-size: 0.95em;
     line-height: 120%;
     text-align: center;
-    text-indent: 0em;
+    text-indent: 0;
     font-weight: bold;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
 }
 
 h4 {
-    text-indent: 0em;
+    text-indent: 0;
     line-height: 1.1em;
     font-weight: bold;
     font-size: 1.2em;
@@ -45,8 +45,8 @@ h4 {
 }
 
 div {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     text-align: justify;
 }
 
@@ -59,18 +59,18 @@ p {
 }
 
 
-/*Í¼Æ¬Ïà¹Ø*/
+/*å›¾ç‰‡ç›¸å…³*/
 
 .illus {
-    text-indent: 0em;
+    text-indent: 0;
     text-align: center;
     margin: 0 0 2em 0;
 }
 
 .cover {
-    margin: 0em;
-    padding: 0em;
-    text-indent: 0em;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
     text-align: center;
 }
 
@@ -82,25 +82,25 @@ p {
 
 
 
-/*Ô¤Éè¸ñÊ½Ïà¹ØÑùÊ½*/
+/*é¢„è®¾æ ¼å¼ç›¸å…³æ ·å¼*/
 
 .right {
-    text-indent: 0em;
+    text-indent: 0;
     text-align: right;
 }
 
 .left {
-    text-indent: 0em;
+    text-indent: 0;
     text-align: left;
 }
 
 .center {
-    text-indent: 0em;
+    text-indent: 0;
     text-align: center;
 }
 
 .zin {
-    text-indent: 0em;
+    text-indent: 0;
 }
 
 .bold {
@@ -145,7 +145,7 @@ p {
 }
 
 .message {
-    text-indent: 0em;
+    text-indent: 0;
     line-height: 1.2em;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
@@ -166,7 +166,7 @@ p {
 }
 
 
-/*ÎÄ×Ö´óĞ¡*/
+/*æ–‡å­—å¤§å°*/
 
 .em05 {
     font-size: 0.5em;
@@ -268,7 +268,7 @@ p {
     font-size: 3em;
 }
 
-/*RGBÑÕÉ«*/
+/*RGBé¢œè‰²*/
 .red {
     color: #ff0000;
 }
@@ -290,11 +290,11 @@ p {
 }
 
 
-/*Ô¤ÉèÄ¿Â¼ÑùÊ½*/
+/*é¢„è®¾ç›®å½•æ ·å¼*/
 
 .contents {
     font-size: 1.3em;
-    text-indent: 0em;
+    text-indent: 0;
     text-align: center;
     border-bottom: 0.1em dotted #000000;
     padding: 0.2em 0 0.2em 0;
@@ -305,7 +305,7 @@ p {
 .mulu {
     font-weight: normal;
     font-size: 1.0em;
-    text-indent: 0em;
+    text-indent: 0;
     text-align: left;
 }
 
@@ -316,7 +316,7 @@ a {
 
 
 
-/*Ô¤ÉètitleÑùÊ½*/
+/*é¢„è®¾titleæ ·å¼*/
 
 .title-width {
     width: 100%;
@@ -373,7 +373,7 @@ a {
     clear: both;
 }
 
-/*¶ÔÆë*/
+/*å¯¹é½*/
 .vt {
     vertical-align: top;
 }
@@ -386,14 +386,14 @@ a {
     vertical-align: middle;
 }
 
-/*¶à¿´ÈÕÎÄ¼ÙÃûÏÔÊ¾*/
+/*å¤šçœ‹æ—¥æ–‡å‡åæ˜¾ç¤º*/
 
 .jp {
     font-family: "DK-XIAOBIAOSONG";
 }
 
 
-/*¸ñĞ£×ÅÖØºÅ*/
+/*æ ¼æ ¡ç€é‡å·*/
 
 
 .dot {
@@ -401,12 +401,11 @@ a {
     -webkit-text-emphasis-position: under right;
     -webkit-text-emphasis: circle #000;
     text-emphasis: circle #000;
-    -webkit-text-emphasis-position: under;
     text-emphasis-position: under right
 }
 
 
-/*Ô¤Éè×¢ÊÍÑùÊ½*/
+/*é¢„è®¾æ³¨é‡Šæ ·å¼*/
 
 .footnote {
     height: 1.2em !important;
@@ -418,13 +417,13 @@ a {
     height: 1.2em !important;
     width: auto;
     border: 0;
-    color: blue; /*ÕâÀïµ÷Õû"[×¢]"·ûºÅµÄ×ÖÌåÑÕÉ«*/
+    color: blue; /*è¿™é‡Œè°ƒæ•´"[æ³¨]"ç¬¦å·çš„å­—ä½“é¢œè‰²*/
 }
 
 .duokan-footnote-item {
-    text-indent: 0em;
+    text-indent: 0;
     font-family: "DK-SONGTI";
-    text-shadow: 0em 0em 0.1em #000000; /*ÕâÀïµ÷Õû×¢ÊÍÎÄ×ÖµÄÒõÓ°ÑÕÉ«*/
+    text-shadow: 0 0 0.1em #000000; /*è¿™é‡Œè°ƒæ•´æ³¨é‡Šæ–‡å­—çš„é˜´å½±é¢œè‰²*/
     font-size: 0.9em;
     text-align: left;
 }
@@ -435,49 +434,30 @@ sup {
     vertical-align: super !important;
 }
 
-/*Í¼Æ¬ÔÊĞí·Å´ó*/
+/*å›¾ç‰‡å…è®¸æ”¾å¤§*/
 
 /*
-html´úÂë£º
+htmlä»£ç ï¼š
 
-<div class="duokan-image-single illus"><img alt="Í¼Æ¬Ãû" src="../Images/Í¼Æ¬Ãû.jpg" /></div>
+<div class="duokan-image-single illus"><img alt="å›¾ç‰‡å" src="../Images/å›¾ç‰‡å.jpg" /></div>
 */
-/*¶à¿´ÈÕÎÄ¼ÙÃûÏÔÊ¾*/
+/*å¤šçœ‹æ—¥æ–‡å‡åæ˜¾ç¤º*/
 
 /*
-ÇëÔÚ¡°²éÕÒ¡ª¡ªÕıÔò±í´ïÊ½¡±Ä£Ê½ÏÂ½øĞĞÌæ»»ËùÓĞ²Ù×÷£º
-	²éÕÒ£º([¤¢-¥ö©`]+)
-	Ìæ»»£º<span class="jp">\1</span>
+è¯·åœ¨â€œæŸ¥æ‰¾â€”â€”æ­£åˆ™è¡¨è¾¾å¼â€æ¨¡å¼ä¸‹è¿›è¡Œæ›¿æ¢æ‰€æœ‰æ“ä½œï¼š
+	æŸ¥æ‰¾ï¼š([ã‚-ãƒ¶ãƒ¼]+)
+	æ›¿æ¢ï¼š<span class="jp">\1</span>
 */
 
 /*
-×¢ÊÍ
+æ³¨é‡Š
 
 <a class="duokan-footnote no-d" epub:type="noteref" href="#n1" id="A_1"><sup><img alt="note" class="footnote" src="../Images/note.png" /></sup></a>
 
 <aside epub:type="footnote" id="n1">
 	<ol class="duokan-footnote-content">
-	<li class="duokan-footnote-item" id="n1" value="1">×¢£º´Ë´¦ÌîĞ´×¢ÊÍÄÚÈİ</li>
+	<li class="duokan-footnote-item" id="n1" value="1">æ³¨ï¼šæ­¤å¤„å¡«å†™æ³¨é‡Šå†…å®¹</li>
 	</ol>
 </aside>
 
-/*ÒÔÏÂÌîĞ´×Ô¶¨ÒåcssÑùÊ½*/
-
-/*×ÖÌå*/
-@font-face {
-    font-family: "title";
-    src: url(../Fonts/title.ttf);
-}
-
-.title {
-    font-family: title;
-}
-
-@font-face {
-    font-family: "font1";
-    src: url(../Fonts/font.ttf);
-}
-
-.illus1 {
-    font-family: font1;
-}
+/*ä»¥ä¸‹å¡«å†™è‡ªå®šä¹‰cssæ ·å¼*/

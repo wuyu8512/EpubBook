@@ -26,7 +26,7 @@ namespace Wuyu.Epub
 
         public Package(string content)
         {
-            BaseElement = XDocument.Parse(content).Root;
+            BaseElement = XElement.Parse(content);
             if (BaseElement == null) throw new ArgumentException("无法识别的内容");
 
             // Metadata

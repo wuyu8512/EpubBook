@@ -54,7 +54,7 @@ namespace Wuyu.Epub
             var elements = BaseElement.Elements().ToArray();
             if (array.Length - arrayIndex < elements.Length)
                 throw new ArgumentException($"源 ICollection<{nameof(T)}> 中的元素个数大于从 arrayIndex 到目标 array 末尾之间的可用空间。");
-            for (int j = 0; j < array.Length; j++)
+            for (var j = 0; j < array.Length; j++)
             {
                 array[j + arrayIndex] = (T) Activator.CreateInstance(typeof(T), elements[j]);
             }

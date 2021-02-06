@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Wuyu.Epub;
 using System.Xml.Linq;
+using AngleSharp.Html.Parser;
 using Test.Properties;
 
 namespace Test
@@ -18,8 +19,20 @@ namespace Test
             //epub.AddNav();
             //epub.Dispose();
 
-            var epub = EpubBook.ReadEpub(@"/media/硬盘/文档/迅雷下载/白银龙王的摇篮/白银龙王的摇篮 02.epub",
-                new FileStream(@"/media/硬盘/办公/EPUB/程序测试/白银龙王的摇篮 02_修改.epub", FileMode.Create), true);
+            const string filePath = @"/media/硬盘/文档/轻小说/边缘女神改造计划/边缘女神改造计划 外传.epub";
+            
+            var epub = EpubBook.ReadEpub(File.ReadAllBytes(filePath),
+                new FileStream(filePath, FileMode.Create), true);
+            // foreach (var id in epub.GetTextIDs())
+            // {
+            //     var stream = epub.GetItemByID(id);
+            //     var parse = new HtmlParser();
+            //     var htmlDocument = parse.ParseDocument(stream);
+            //     foreach (var VARIABLE in htmlDocument.QuerySelectorAll("p.img"))
+            //     {
+            //         
+            //     }
+            // }
             epub.Dispose();
 
             // MemoryStream memoryStream = new MemoryStream();
