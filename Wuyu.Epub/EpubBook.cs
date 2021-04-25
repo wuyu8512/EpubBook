@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -185,7 +183,7 @@ namespace Wuyu.Epub
                 {
                     foreach (var entry in zipArchive.Entries)
                     {
-                        var href = entry.FullName.Replace(epub.OEBPS, "");
+                        var href = entry.FullName.Replace(epub.OEBPS, null);
                         if (entry.FullName != opfPath && !string.IsNullOrEmpty(entry.Name) &&
                             entry.FullName.Contains(epub.OEBPS) &&
                             !epub.HashItemByBaseName(href))
@@ -351,6 +349,9 @@ namespace Wuyu.Epub
             Package.Metadata.Cover = id;
         }
 
+        /// <summary>
+        /// 为EPUB3文件生成Nav
+        /// </summary>
         public void AddNav()
         {
             ManifestItem manifestItem = Package.Manifest.SingleOrDefault(c => c.IsNav);
@@ -424,7 +425,7 @@ namespace Wuyu.Epub
             }
 
             XElement xElement2 = null;
-            for (var i = 0; i < list.Count(); i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 if (i == 0)
                 {
@@ -529,7 +530,7 @@ namespace Wuyu.Epub
                 }
             }
 
-            xDocument.Save((TextWriter) textWriter);
+            xDocument.Save(textWriter);
         }
 
         public IEnumerable<XElement> GetMetadata(XName name)

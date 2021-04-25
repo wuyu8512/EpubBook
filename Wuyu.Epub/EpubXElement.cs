@@ -33,7 +33,7 @@ namespace Wuyu.Epub
         public void Add(T item)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-            BaseElement.Add(((dynamic) item).BaseElement);
+            BaseElement.Add(item.BaseElement);
         }
 
         public void Clear()
