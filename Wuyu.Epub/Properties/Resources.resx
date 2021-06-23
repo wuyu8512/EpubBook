@@ -167,13 +167,8 @@
     &lt;dc:title&gt;[此处填写主标题]&lt;/dc:title&gt;
   &lt;/metadata&gt;
   &lt;manifest&gt;
-    &lt;item id="Section0001.xhtml" href="Text/Section0001.xhtml" media-type="application/xhtml+xml"/&gt;
-    &lt;item id="sgc-nav.css" href="Styles/sgc-nav.css" media-type="text/css"/&gt;
-    &lt;item id="nav.xhtml" href="Text/nav.xhtml" media-type="application/xhtml+xml" properties="nav"/&gt;
   &lt;/manifest&gt;
   &lt;spine&gt;
-    &lt;itemref idref="Section0001.xhtml"/&gt;
-    &lt;itemref idref="nav.xhtml" linear="no"/&gt;
   &lt;/spine&gt;
 &lt;/package&gt;</value>
   </data>
