@@ -32,8 +32,15 @@ namespace Wuyu.Epub
         public void Insert(int index, SpineItem item)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-            var el = BaseElement.Elements(EpubBook.OpfNs + "itemref").ToArray()[index];
-            el.AddBeforeSelf(item.BaseElement);
+            if (index == 0)
+            {
+                BaseElement.AddFirst(item.BaseElement);
+            }
+            else
+            {
+                var el = BaseElement.Elements(EpubBook.OpfNs + "itemref").ToArray()[index];
+                el.AddBeforeSelf(item.BaseElement);
+            }
         }
 
         public void RemoveAt(int index)

@@ -120,6 +120,7 @@ namespace Wuyu.Epub
                 {
                     xElement = new XElement(EpubBook.OpfNs + "meta", new XAttribute("name", "cover"),
                         new XAttribute("content", value));
+                    BaseElement.Add(xElement);
                 }
                 else
                 {
