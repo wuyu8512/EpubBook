@@ -23,6 +23,7 @@ namespace Test
             MemoryStream stream = new();
             var epub = new EpubBook(stream);
             epub.AddCoverImage(new EpubItem { Data = Array.Empty<byte>(), ID = "Cover", EntryName = "Images/cover.jpg" });
+            epub.AddNavByTitle();
 
             epub.Dispose();
             var data = stream.ToArray();

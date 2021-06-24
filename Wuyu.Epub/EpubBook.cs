@@ -494,7 +494,7 @@ namespace Wuyu.Epub
                     Data = Array.Empty<byte>()
                 });
                 str = "Text/nav.xhtml";
-                Package.Manifest.ToList().ForEach(delegate(ManifestItem c) { c.IsNav = c.ID == "nav"; });
+                Package.Manifest.ToList().ForEach(c => c.IsNav = c.ID == "nav");
             }
             else
             {
