@@ -46,7 +46,7 @@ namespace Wuyu.Epub
             get => BaseElement.Attribute("properties")?.Value == "nav";
             set
             {
-                if (IsNav)
+                if (value)
                 {
                     BaseElement.SetAttributeValue("properties", "nav");
                 }
