@@ -361,7 +361,9 @@ namespace Wuyu.Epub
 
         public IEnumerable<string> GetItemIDs(IEnumerable<string> extension)
         {
-            return from item in Package.Manifest where extension.Contains(Path.GetExtension(item.Href)) select item.ID;
+            return from item in Package.Manifest
+                   where extension.Contains(Path.GetExtension(item.Href), StringComparer.CurrentCultureIgnoreCase)
+                   select item.ID;
         }
 
         public IEnumerable<string> GetTextIDs()
