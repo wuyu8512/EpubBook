@@ -14,6 +14,8 @@ namespace Wuyu.Epub
     {
         public static readonly XNamespace OpfNs = "http://www.idpf.org/2007/opf";
 
+        public static readonly XNamespace EpubNs = "http://www.idpf.org/2007/ops";
+
         public static readonly XNamespace DcNs = "http://purl.org/dc/elements/1.1/";
 
         public static readonly XNamespace XHtmlNs = "http://www.w3.org/1999/xhtml";
@@ -66,7 +68,9 @@ namespace Wuyu.Epub
 
         private Package Package;
 
-        private string OEBPS;
+        public Nav Nav { get; private set; }
+
+        public string OEBPS { get; private set; }
 
         private string Opf;
 
@@ -127,6 +131,7 @@ namespace Wuyu.Epub
             OEBPS = "OEBPS/";
             Opf = "content.opf";
             Package = new Package();
+            Nav = new Nav();
             Language = "zh-CN";
             Title = "[此处填写标题]";
         }
@@ -196,6 +201,9 @@ namespace Wuyu.Epub
                         }
                     }
                 }
+
+                var nav = epub.GetNav();
+                if (nav != null) epub.Nav = new Nav(epub.GetItemContentByID(nav.ID));
             }
 
             return epub;
@@ -263,10 +271,12 @@ namespace Wuyu.Epub
                 {
                     entry.Delete();
                 }
+                manifestItem.Remove();
+                Package.Spine.FirstOrDefault((c) => c.IdRef == manifestItem.ID)?.Remove();
             }
         }
 
-        public Stream GetItemByID(string id)
+        public Stream GetItemStreamByID(string id)
         {
             ManifestItem manifestItem;
             if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
@@ -345,7 +355,7 @@ namespace Wuyu.Epub
             return null;
         }
 
-        public Stream GetItemByID(string id, out string entryName)
+        public Stream GetItemStreamByID(string id, out string entryName)
         {
             entryName = null;
             ManifestItem manifestItem;
@@ -371,6 +381,42 @@ namespace Wuyu.Epub
             return Package.Spine.Select(itemRef => itemRef.IdRef);
         }
 
+        /// <summary>
+        /// EPUB3 独有
+        /// </summary>
+        /// <returns></returns>
+        public ManifestItem GetNav()
+        {
+            return Package.Manifest.SingleOrDefault(c => c.IsNav);
+        }
+
+        public ManifestItem GetCoverXhtml()
+        {
+            string href = null;
+            if (Version[0] == '3')
+            {
+                var nav = GetNav();
+                if (nav == default) return default;
+                using var stream = GetItemStreamByID(nav.ID);
+
+                XElement element = XElement.Load(stream);
+                var a = element.Descendants(XHtmlNs + "a").SingleOrDefault(a => a.Attribute(EpubNs + "type")?.Value == "cover");
+                if (a == default) return default;
+                href = a.Attribute("href")?.Value;
+            }
+            else
+            {
+                href = Package.Guide.SingleOrDefault(x => x.Type == "cover")?.Href;
+            }
+
+            return Package.Manifest.SingleOrDefault(item => item.Href == href);
+        }
+
+        public ManifestItem GetItemByHref(string href)
+        {
+            return Package.Manifest.SingleOrDefault(x => Path.Equals(href, x.Href));
+        }
+
         public void AddCoverImage(EpubItem item, bool createHtml = true)
         {
             AddItem(item);
@@ -384,7 +430,9 @@ namespace Wuyu.Epub
 
         public void CreateCoverXhtml(string id)
         {
-            ZipArchiveEntry val = _epubZip.GetEntry(OEBPS + "Text/cover.xhtml");
+            var href = GetCoverXhtml()?.Href;
+            if (href == null) href = "Text/cover.xhtml";
+            ZipArchiveEntry val = _epubZip.GetEntry(OEBPS + href);
             if (val == null)
             {
                 Package.Manifest.Add(new ManifestItem
@@ -397,11 +445,12 @@ namespace Wuyu.Epub
                 val = _epubZip.CreateEntry(OEBPS + "Text/cover.xhtml", CompressionLevel.Optimal);
             }
 
-            using (StreamWriter streamWriter = new StreamWriter(val.Open()))
+            using (StreamWriter streamWriter = new(val.Open()))
             {
-                string entryName;
-                using Stream stream = GetItemByID(id, out entryName);
-                streamWriter.Write(string.Format(Resources.cover, entryName));
+                streamWriter.BaseStream.SetLength(0);
+                var item = Package.Manifest.SingleOrDefault(c => c.ID == id);
+                // TODO 相对路径
+                streamWriter.Write(string.Format(Resources.cover, item.Href));
             }
 
             SetCoverImage(id);
@@ -466,7 +515,7 @@ namespace Wuyu.Epub
                     continue;
                 }
 
-                using Stream stream = GetItemByID(item, out var entryName);
+                using Stream stream = GetItemStreamByID(item, out var entryName);
                 XDocument xDocument2 = XDocument.Load(stream);
                 var xElements = xDocument2.Descendants().Where(element => hName.Contains(element.Name.LocalName))
                     .ToArray();
@@ -582,7 +631,7 @@ namespace Wuyu.Epub
                     continue;
                 }
 
-                using Stream stream = GetItemByID(item, out var entryName);
+                using Stream stream = GetItemStreamByID(item, out var entryName);
                 XElement xElement2 = XElement.Load(stream);
                 XNamespace defaultNamespace = xElement2.GetDefaultNamespace();
                 var text = xElement2.Descendants(defaultNamespace + "title").FirstOrDefault()?.Value;
@@ -621,24 +670,34 @@ namespace Wuyu.Epub
 
             if (disposing)
             {
+                // 保存Package
                 ZipArchiveEntry val = _epubZip.GetEntry(OEBPS + Opf);
                 if (val == null)
                 {
                     val = _epubZip.CreateEntry(OEBPS + Opf, CompressionLevel.Optimal);
                 }
-
-                using (StreamWriter stream = new StreamWriter(val.Open()))
+                using (StreamWriter stream = new(val.Open()))
                 {
                     Package.Save(stream);
                 }
 
+                // 保存Nav
+                var nav = this.GetNav();
+                if (nav != null)
+                {
+                    var entry = _epubZip.GetEntry(OEBPS + nav.Href);
+                    using StreamWriter stream = new(entry.Open());
+                    Nav.Save(stream);
+                }
+
+                // 格式化
                 foreach (var item in GetItemIDs(new string[2]
                 {
                     ".xhtml",
                     ".html"
                 }))
                 {
-                    using Stream stream2 = GetItemByID(item);
+                    using Stream stream2 = GetItemStreamByID(item);
                     var array = new byte[stream2.Length];
                     stream2.Read(array, 0, array.Length);
                     var @string = Encoding.UTF8.GetString(array);

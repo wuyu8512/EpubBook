@@ -26,7 +26,8 @@ namespace Wuyu.Epub
 
         public Package(string content)
         {
-            BaseElement = XElement.Parse(content);
+            var doc = XDocument.Parse(content);
+            BaseElement = doc.Root;
             if (BaseElement == null) throw new ArgumentException("无法识别的内容");
 
             // Metadata
@@ -43,7 +44,7 @@ namespace Wuyu.Epub
             if (xElement == null)
             {
                 Manifest = new Manifest();
-                BaseElement.Add(Metadata.BaseElement);
+                BaseElement.Add(Manifest.BaseElement);
             }
             else Manifest = new Manifest(xElement);
 
@@ -61,7 +62,7 @@ namespace Wuyu.Epub
             if (xElement == null)
             {
                 Guide = new Guide();
-                BaseElement.Add(Spine.BaseElement);
+                BaseElement.Add(Guide.BaseElement);
             }
             else Guide = new Guide(xElement);
         }

@@ -127,10 +127,9 @@
   </data>
   <data name="cover" xml:space="preserve">
     <value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+&lt;!DOCTYPE html&gt;
 
-&lt;html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="zh-CN"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace"&gt;
 &lt;head&gt;
   &lt;link href="../Styles/style.css" rel="stylesheet" type="text/css"/&gt;
   &lt;title&gt;封面&lt;/title&gt;

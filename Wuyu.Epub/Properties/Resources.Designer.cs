@@ -76,10 +76,9 @@ namespace Wuyu.Epub.Properties {
         
         /// <summary>
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-        ///&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
-        ///  &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+        ///&lt;!DOCTYPE html&gt;
         ///
-        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot; xml:lang=&quot;zh-CN&quot;&gt;
+        ///&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;zh-CN&quot; xmlns:epub=&quot;http://www.idpf.org/2007/ops&quot; xmlns:xml=&quot;http://www.w3.org/XML/1998/namespace&quot;&gt;
         ///&lt;head&gt;
         ///  &lt;link href=&quot;../Styles/style.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&gt;
         ///  &lt;title&gt;封面&lt;/title&gt;
