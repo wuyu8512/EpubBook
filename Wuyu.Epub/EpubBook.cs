@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Wuyu.Epub.Properties;
 
@@ -304,6 +305,22 @@ namespace Wuyu.Epub
             return null;
         }
 
+        public async Task<string> GetItemContentByIDAsync(string id, string encoding = "UTF-8")
+        {
+            ManifestItem manifestItem;
+            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
+            {
+                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
+                var stream = entry?.Open();
+                if (stream != null)
+                {
+                    using var streamReader = new StreamReader(stream, Encoding.GetEncoding(encoding));
+                    return await streamReader.ReadToEndAsync();
+                }
+            }
+            return null;
+        }
+
         public void SetItemContentByID(string id, string conetnt, string encoding = "UTF-8")
         {
             ManifestItem manifestItem;
@@ -316,6 +333,22 @@ namespace Wuyu.Epub
                     using var sw = new StreamWriter(stream, Encoding.GetEncoding(encoding));
                     stream.SetLength(0);
                     sw.Write(conetnt);
+                }
+            }
+        }
+
+        public async Task SetItemContentByIDAsync(string id, string conetnt, string encoding = "UTF-8")
+        {
+            ManifestItem manifestItem;
+            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
+            {
+                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
+                var stream = entry?.Open();
+                if (stream != null)
+                {
+                    using var sw = new StreamWriter(stream, Encoding.GetEncoding(encoding));
+                    stream.SetLength(0);
+                    await sw.WriteAsync(conetnt);
                 }
             }
         }
@@ -369,17 +402,27 @@ namespace Wuyu.Epub
             return null;
         }
 
-        public IEnumerable<string> GetItemIDs(IEnumerable<string> extension)
+        public IEnumerable<ManifestItem> GetItems(IEnumerable<string> extension)
         {
             return from item in Package.Manifest
                    where extension.Contains(Path.GetExtension(item.Href), StringComparer.CurrentCultureIgnoreCase)
-                   select item.ID;
+                   select item;
         }
 
+        /// <summary>
+        /// 返回Epub中可显示内容的迭代对象
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetTextIDs()
         {
             return Package.Spine.Select(itemRef => itemRef.IdRef);
         }
+
+        /// <summary>
+        /// 返回Epub中所有HTML内容的迭代对象
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ManifestItem> GetHtmlItems() => GetItems(new[] { ".xhtml", ".html" });
 
         /// <summary>
         /// EPUB3 独有
@@ -403,10 +446,13 @@ namespace Wuyu.Epub
                 var a = element.Descendants(XHtmlNs + "a").SingleOrDefault(a => a.Attribute(EpubNs + "type")?.Value == "cover");
                 if (a == default) return default;
                 href = a.Attribute("href")?.Value;
+
+                href = Util.ZipResolvePath(Path.GetDirectoryName(nav.Href), href);
             }
             else
             {
                 href = Package.Guide.SingleOrDefault(x => x.Type == "cover")?.Href;
+
             }
 
             return Package.Manifest.SingleOrDefault(item => item.Href == href);
@@ -565,6 +611,16 @@ namespace Wuyu.Epub
             xDocument.Save(textWriter);
         }
 
+        public void UpDataNav()
+        {
+            var nav = GetNav();
+            if (nav != null)
+            {
+                var content = GetItemContentByID(nav.ID);
+                Nav = new Nav(content);
+            }
+        }
+
         private XElement Funb(XContainer element, string level, string content, string href)
         {
             var num = Compare(element.Parent, level);
@@ -678,6 +734,7 @@ namespace Wuyu.Epub
                 }
                 using (StreamWriter stream = new(val.Open()))
                 {
+                    stream.BaseStream.SetLength(0);
                     Package.Save(stream);
                 }
 
@@ -687,25 +744,26 @@ namespace Wuyu.Epub
                 {
                     var entry = _epubZip.GetEntry(OEBPS + nav.Href);
                     using StreamWriter stream = new(entry.Open());
+                    stream.BaseStream.SetLength(0);
                     Nav.Save(stream);
                 }
 
                 // 格式化
-                foreach (var item in GetItemIDs(new string[2]
+                foreach (var item in GetItems(new string[2]
                 {
                     ".xhtml",
                     ".html"
                 }))
                 {
-                    using Stream stream2 = GetItemStreamByID(item);
-                    var array = new byte[stream2.Length];
-                    stream2.Read(array, 0, array.Length);
-                    var @string = Encoding.UTF8.GetString(array);
-                    @string = @string.Replace(" []>", ">");
-                    @string = @string.Replace("[]>", ">");
-                    stream2.SetLength(0L);
-                    array = Encoding.UTF8.GetBytes(@string);
-                    stream2.Write(array, 0, array.Length);
+                    using Stream stream = GetItemStreamByID(item.ID);
+                    using var streamReader = new StreamReader(stream);
+                    var content = streamReader.ReadToEnd();
+
+                    content = content.Replace(" []>", ">");
+                    content = content.Replace("[]>", ">");
+                    stream.SetLength(0L);
+                    using var streamWrite = new StreamWriter(stream);
+                    streamWrite.Write(content);
                 }
 
                 var container = _epubZip.CreateEntry("META-INF/container.xml", CompressionLevel.Optimal);

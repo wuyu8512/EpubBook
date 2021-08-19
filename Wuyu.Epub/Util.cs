@@ -27,5 +27,6 @@ namespace Wuyu.Epub
             }
             return basePath;
         }
+
     }
 }
