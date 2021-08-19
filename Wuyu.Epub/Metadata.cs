@@ -65,10 +65,10 @@ namespace Wuyu.Epub
 
         public string Author
         {
-            get => GetCreator().FirstOrDefault()?.Value;
+            get => GetAuthor().FirstOrDefault()?.Value;
             set
             {
-                var xElement = GetCreator().FirstOrDefault();
+                var xElement = GetAuthor().FirstOrDefault();
                 if (xElement == null)
                 {
                     BaseElement.AddFirst(new XElement(EpubBook.DcNs + "creator", value, new XAttribute("id", "cre")),
@@ -84,15 +84,10 @@ namespace Wuyu.Epub
 
         public string Creator
         {
-            get =>
-                (from e in BaseElement.Elements(EpubBook.DcNs + "creator")
-                    where e.Attribute("role")?.Value == null
-                    select e).FirstOrDefault()?.Value;
+            get => GetCreator().FirstOrDefault()?.Value;
             set
             {
-                var xElement = (from e in BaseElement.Elements(EpubBook.DcNs + "creator")
-                    where e.Attribute("role")?.Value == null
-                    select e).FirstOrDefault();
+                var xElement = GetCreator().FirstOrDefault();
                 if (xElement == null)
                 {
                     xElement = new XElement(EpubBook.DcNs + "creator", value);
@@ -145,13 +140,23 @@ namespace Wuyu.Epub
             return BaseElement.Elements(name);
         }
 
-        private IEnumerable<XElement> GetCreator()
+        private IEnumerable<XElement> GetAuthor()
         {
             return from creator in BaseElement.Elements(EpubBook.DcNs + "creator")
                 join meta in BaseElement.Elements(EpubBook.OpfNs + "meta") on "#" + creator.Attribute("id")?.Value
                     equals meta.Attribute("refines")?.Value
                 where meta.Value == "aut" && meta.Attribute("property")?.Value == "role"
                 select creator;
+        }
+
+        private IEnumerable<XElement> GetCreator()
+        {
+            return from creator in BaseElement.Elements(EpubBook.DcNs + "creator")
+                   join meta in BaseElement.Elements(EpubBook.OpfNs + "meta") 
+                   on "#" + creator.Attribute("id")?.Value equals meta.Attribute("refines")?.Value into metaGroup
+                   from meta in metaGroup.DefaultIfEmpty()
+                   where meta?.Value != "aut"
+                   select creator;
         }
 
         public void AddMetaDataItem(XName name, string content, object attributes = null)

@@ -43,5 +43,10 @@ namespace Wuyu.Epub
         {
             BaseElement = element;
         }
+
+        public NavItem()
+        {
+            BaseElement = new XElement(EpubBook.XHtmlNs + "li");
+        }
     }
 }
