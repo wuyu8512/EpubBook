@@ -67,7 +67,7 @@ namespace Wuyu.Epub
 
         private readonly ZipArchive _epubZip;
 
-        private Package Package;
+        public Package Package { get; private set; }
 
         public Nav Nav { get; private set; }
 
@@ -705,16 +705,6 @@ namespace Wuyu.Epub
             }
 
             xDocument.Save(textWriter);
-        }
-
-        public IEnumerable<XElement> GetMetadata(XName name)
-        {
-            return Package.Metadata.GetMetaDataItem(name);
-        }
-
-        public void AddMetaDataItem(XName name, string content, object attributes = null)
-        {
-            Package.Metadata.AddMetaDataItem(name, content, attributes);
         }
 
         private void Dispose(bool disposing)
