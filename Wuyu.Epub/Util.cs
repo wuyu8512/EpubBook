@@ -28,5 +28,10 @@ namespace Wuyu.Epub
             return basePath;
         }
 
+        public static string ZipRelativePath(string basePath,string path)
+        {
+            basePath = Path.GetRelativePath(basePath, path).Replace(Path.DirectorySeparatorChar, '/');
+            return basePath;
+        }
     }
 }
