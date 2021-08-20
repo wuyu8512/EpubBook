@@ -137,7 +137,7 @@
 
 &lt;body&gt;
   &lt;div class="cover duokan-image-single"&gt;
-    &lt;img alt="cover" src="../{0}"/&gt;
+    &lt;img alt="cover" src="{0}"/&gt;
   &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;</value>

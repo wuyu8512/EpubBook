@@ -7,6 +7,12 @@ namespace Wuyu.Epub
 {
     public static class Util
     {
+        /// <summary>
+        /// 相对路径转绝对路径
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string ZipResolvePath(string basePath, string path)
         {
             var first = true;
@@ -28,8 +34,15 @@ namespace Wuyu.Epub
             return basePath;
         }
 
+        /// <summary>
+        /// 绝对路径转相对路径
+        /// </summary>
+        /// <param name="basePath"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public static string ZipRelativePath(string basePath,string path)
         {
+            if (string.IsNullOrEmpty(basePath)) return path;
             basePath = Path.GetRelativePath(basePath, path).Replace(Path.DirectorySeparatorChar, '/');
             return basePath;
         }

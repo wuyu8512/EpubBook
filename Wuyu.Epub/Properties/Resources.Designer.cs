@@ -86,7 +86,7 @@ namespace Wuyu.Epub.Properties {
         ///
         ///&lt;body&gt;
         ///  &lt;div class=&quot;cover duokan-image-single&quot;&gt;
-        ///    &lt;img alt=&quot;cover&quot; src=&quot;../{0}&quot;/&gt;
+        ///    &lt;img alt=&quot;cover&quot; src=&quot;{0}&quot;/&gt;
         ///  &lt;/div&gt;
         ///&lt;/body&gt;
         ///&lt;/html&gt; 的本地化字符串。

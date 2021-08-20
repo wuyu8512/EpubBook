@@ -452,10 +452,35 @@ namespace Wuyu.Epub
             else
             {
                 href = Package.Guide.SingleOrDefault(x => x.Type == "cover")?.Href;
-
             }
 
             return Package.Manifest.SingleOrDefault(item => item.Href == href);
+        }
+
+        public bool SetConverHtml(string href)
+        {
+            //TODO
+            //if (Version[0] == '3')
+            //{
+            //    var nav = GetNav();
+            //    if (nav == default) return false;
+            //    using var stream = GetItemStreamByID(nav.ID);
+
+            //    XElement element = XElement.Load(stream);
+            //    var a = element.Descendants(XHtmlNs + "a").SingleOrDefault(a => a.Attribute(EpubNs + "type")?.Value == "cover");
+            //    if (a == default)
+            //    {
+
+            //    }
+            //    href = a.Attribute("href")?.Value;
+
+            //    href = Util.ZipResolvePath(Path.GetDirectoryName(nav.Href), href);
+            //}
+            //else
+            //{
+            //    href = Package.Guide.SingleOrDefault(x => x.Type == "cover")?.Href;
+            //}
+            return true;
         }
 
         public ManifestItem GetItemByHref(string href)
@@ -495,8 +520,7 @@ namespace Wuyu.Epub
             {
                 streamWriter.BaseStream.SetLength(0);
                 var item = Package.Manifest.SingleOrDefault(c => c.ID == id);
-                // TODO 相对路径
-                streamWriter.Write(string.Format(Resources.cover, item.Href));
+                streamWriter.Write(string.Format(Resources.cover, Util.ZipRelativePath("Text", item.Href)));
             }
 
             SetCoverImage(id);
@@ -579,8 +603,7 @@ namespace Wuyu.Epub
                         list3.Add(xAttribute.Value);
                     }
 
-                    // Todo 需要的是一个相对位置
-                    list2.Add(entryName);
+                    list2.Add(Util.ZipRelativePath("Text", entryName));
                 }
 
                 stream.SetLength(0L);
