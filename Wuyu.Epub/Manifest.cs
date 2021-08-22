@@ -8,6 +8,8 @@ namespace Wuyu.Epub
 {
 	public class Manifest: EpubXElement<ManifestItem>
 	{
+		protected override XName ItemName { get; } = EpubBook.OpfNs + "item";
+
 		public Manifest():base(EpubBook.OpfNs + "manifest")
 		{
 		}

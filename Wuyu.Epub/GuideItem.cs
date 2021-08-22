@@ -5,7 +5,7 @@ namespace Wuyu.Epub
 {
     public class GuideItem : EpubXElementItem
     {
-        internal static XName Name { get; } = EpubBook.OpfNs + "reference";
+        protected override XName ItemName => EpubBook.OpfNs + "reference";
 
         public string Type
         {
@@ -27,13 +27,13 @@ namespace Wuyu.Epub
 
         public GuideItem(XElement baseElement)
         {
-            if (baseElement.Name != Name) throw new ArgumentException("baseElement的名称应当为" + Name);
+            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
             BaseElement = baseElement;
         }
 
         public GuideItem()
         {
-            BaseElement = new XElement(Name);
+            BaseElement = new XElement(ItemName);
         }
     }
 }

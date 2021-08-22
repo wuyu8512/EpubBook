@@ -7,7 +7,7 @@ namespace Wuyu.Epub
 {
     public class NavItem : EpubXElementItem
     {
-        internal static XName Name { get; } = EpubBook.XHtmlNs + "li";
+        protected override XName ItemName { get; } = EpubBook.XHtmlNs + "li";
 
         public string Href
         {
@@ -46,7 +46,7 @@ namespace Wuyu.Epub
 
         public NavItem()
         {
-            BaseElement = new XElement(EpubBook.XHtmlNs + "li");
+            BaseElement = new XElement(ItemName);
         }
     }
 }

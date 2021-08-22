@@ -8,8 +8,10 @@ using System.IO;
 
 namespace Wuyu.Epub
 {
-    public class Nav : EpubXElement<NavItem>
+    public class Nav : EpubXElement<NavItem>, IList<NavItem>
     {
+        protected override XName ItemName { get; } = EpubBook.XHtmlNs + "li";
+
         public Nav() : base(
             XDocument.Parse(Resources.nav)
             .Descendants(EpubBook.XHtmlNs + "nav")
@@ -26,11 +28,6 @@ namespace Wuyu.Epub
             .Element(EpubBook.XHtmlNs + "ol")
             )
         {
-        }
-
-        public void Save(TextWriter writer)
-        {
-            BaseElement.Document.Save(writer);
         }
     }
 }

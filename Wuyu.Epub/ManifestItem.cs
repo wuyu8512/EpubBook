@@ -7,7 +7,7 @@ namespace Wuyu.Epub
 {
     public class ManifestItem : EpubXElementItem
     {
-        internal static XName Name { get; } = EpubBook.OpfNs + "item";
+        protected override XName ItemName { get; } = EpubBook.OpfNs + "item";
 
         public string ID
         {
@@ -55,12 +55,12 @@ namespace Wuyu.Epub
 
         public ManifestItem()
         {
-            BaseElement = new XElement(Name);
+            BaseElement = new XElement(ItemName);
         }
 
         public ManifestItem(string id, string href)
         {
-            BaseElement = new XElement(Name);
+            BaseElement = new XElement(ItemName);
             ID = id;
             Href = href;
             MediaType = EpubBook.MediaType[Path.GetExtension(href)];
@@ -68,7 +68,7 @@ namespace Wuyu.Epub
 
         public ManifestItem(XElement baseElement)
         {
-            if (baseElement.Name != Name) throw new ArgumentException("baseElement的名称应当为" + Name);
+            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
             BaseElement = baseElement;
         }
     }

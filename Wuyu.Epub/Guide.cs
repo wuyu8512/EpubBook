@@ -10,6 +10,8 @@ namespace Wuyu.Epub
 {
     public class Guide : EpubXElement<GuideItem>
     {
+        protected override XName ItemName => EpubBook.OpfNs + "reference";
+
         internal Guide(XElement baseElement) : base(baseElement)
         {
         }

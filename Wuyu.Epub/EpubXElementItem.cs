@@ -7,5 +7,7 @@ namespace Wuyu.Epub
         public XElement BaseElement { get; protected set; }
 
         public void Remove() => BaseElement.Remove();
+
+        protected abstract XName ItemName { get; }
     }
 }

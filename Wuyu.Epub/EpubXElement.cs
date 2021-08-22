@@ -1,14 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
 namespace Wuyu.Epub
 {
-    public abstract class EpubXElement<T> : EpubXElementItem, ICollection<T> where T : EpubXElementItem
+    public abstract class EpubXElement<T> : EpubXElementItem, IList<T> where T : EpubXElementItem
     {
+        public int Count => BaseElement.Elements().Count();
+        public bool IsReadOnly { get; } = false;
+
+        public T this[int index]
+        {
+            get => BaseElement.Elements(ItemName).Select(item => (T)Activator.CreateInstance(typeof(T), item)).ToArray()[index];
+            set => BaseElement.Elements(ItemName).ToArray()[index].ReplaceWith(value.BaseElement);
+        }
+
         protected EpubXElement(XElement baseElement)
         {
             BaseElement = baseElement;
@@ -21,7 +31,7 @@ namespace Wuyu.Epub
 
         public IEnumerator<T> GetEnumerator()
         {
-            return BaseElement.Elements().Select(item => (T) Activator.CreateInstance(typeof(T), item))
+            return BaseElement.Elements().Select(item => (T)Activator.CreateInstance(typeof(T), item))
                 .GetEnumerator();
         }
 
@@ -38,7 +48,7 @@ namespace Wuyu.Epub
 
         public void Clear()
         {
-            BaseElement.Elements().ToList().ForEach(delegate(XElement element) { element.Remove(); });
+            BaseElement.Elements().ToList().ForEach(delegate (XElement element) { element.Remove(); });
         }
 
         public bool Contains(T item)
@@ -56,7 +66,7 @@ namespace Wuyu.Epub
                 throw new ArgumentException($"源 ICollection<{nameof(T)}> 中的元素个数大于从 arrayIndex 到目标 array 末尾之间的可用空间。");
             for (var j = 0; j < array.Length; j++)
             {
-                array[j + arrayIndex] = (T) Activator.CreateInstance(typeof(T), elements[j]);
+                array[j + arrayIndex] = (T)Activator.CreateInstance(typeof(T), elements[j]);
             }
         }
 
@@ -69,7 +79,34 @@ namespace Wuyu.Epub
             return true;
         }
 
-        public int Count => BaseElement.Elements().Count();
-        public bool IsReadOnly { get; } = false;
+        public int IndexOf(T item)
+        {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            return BaseElement.Elements(ItemName).ToList().IndexOf(item.BaseElement);
+        }
+
+        public void Insert(int index, T item)
+        {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (index == 0)
+            {
+                BaseElement.AddFirst(item.BaseElement);
+            }
+            else
+            {
+                var el = BaseElement.Elements(ItemName).ToArray()[index];
+                el.AddBeforeSelf(item.BaseElement);
+            }
+        }
+
+        public void RemoveAt(int index)
+        {
+            BaseElement.Elements(ItemName).ToArray()[index].Remove();
+        }
+
+        public void Save(TextWriter writer)
+        {
+            BaseElement.Document.Save(writer);
+        }
     }
 }

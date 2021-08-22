@@ -5,7 +5,7 @@ namespace Wuyu.Epub
 {
     public class SpineItem : EpubXElementItem
     {
-        internal static XName Name { get; } = EpubBook.OpfNs + "itemref";
+        protected override XName ItemName { get; } = EpubBook.OpfNs + "itemref";
 
         public string IdRef
         {
@@ -15,18 +15,18 @@ namespace Wuyu.Epub
 
         public SpineItem(XElement baseElement)
         {
-            if (baseElement.Name != Name) throw new ArgumentException("baseElement的名称应当为" + Name);
+            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
             BaseElement = baseElement;
         }
 
         public SpineItem()
         {
-            BaseElement = new XElement(Name);
+            BaseElement = new XElement(ItemName);
         }
 
         public SpineItem(string idRef)
         {
-            BaseElement = new XElement(Name);
+            BaseElement = new XElement(ItemName);
             this.IdRef = idRef;
         }
     }
