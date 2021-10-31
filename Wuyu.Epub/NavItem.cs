@@ -39,6 +39,21 @@ namespace Wuyu.Epub
             }
         }
 
+        public string Type
+        {
+            get => BaseElement.Element(EpubBook.XHtmlNs + "a").Attribute(EpubBook.EpubNs + "type").Value;
+            set
+            {
+                var a = BaseElement.Element(EpubBook.XHtmlNs + "a");
+                if (a == null)
+                {
+                    a = new XElement(EpubBook.XHtmlNs + "a");
+                    BaseElement.Add(a);
+                }
+                a.SetAttributeValue(EpubBook.EpubNs + "type", value);
+            }
+        }
+
         public NavItem(XElement element)
         {
             BaseElement = element;

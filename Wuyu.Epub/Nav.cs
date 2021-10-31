@@ -12,6 +12,8 @@ namespace Wuyu.Epub
     {
         protected override XName ItemName { get; } = EpubBook.XHtmlNs + "li";
 
+        public NavGuide NavGuide;
+
         public Nav() : base(
             XDocument.Parse(Resources.nav)
             .Descendants(EpubBook.XHtmlNs + "nav")
@@ -19,6 +21,7 @@ namespace Wuyu.Epub
             .Element(EpubBook.XHtmlNs + "ol")
             )
         {
+            this.NavGuide = new(this.BaseElement.Document);
         }
 
         public Nav(string content) : base(
@@ -28,6 +31,19 @@ namespace Wuyu.Epub
             .Element(EpubBook.XHtmlNs + "ol")
             )
         {
+            var guide = this.BaseElement.Document
+                .Descendants(EpubBook.XHtmlNs + "nav")
+                .SingleOrDefault(a => a.Attribute(EpubBook.EpubNs + "type")?.Value == "landmarks");
+            if (guide == default)
+            {
+                var contentElement = XElement.Parse(Resources.navGuideCover);
+                contentElement.FirstAttribute.Remove();
+                contentElement.FirstAttribute.Remove();
+                var body = this.BaseElement.Document.Descendants(EpubBook.XHtmlNs + "body").First();
+                body.Add(contentElement);
+            }
+
+            this.NavGuide = new(this.BaseElement.Document);
         }
     }
 }

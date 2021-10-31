@@ -440,14 +440,11 @@ namespace Wuyu.Epub
             {
                 var nav = GetNav();
                 if (nav == default) return default;
-                using var stream = GetItemStreamByID(nav.ID);
 
-                XElement element = XElement.Load(stream);
-                var a = element.Descendants(XHtmlNs + "a").SingleOrDefault(a => a.Attribute(EpubNs + "type")?.Value == "cover");
+                var a = Nav.NavGuide.FirstOrDefault(x => x.Type == "cover");
                 if (a == default) return default;
-                href = a.Attribute("href")?.Value;
 
-                href = Util.ZipResolvePath(Path.GetDirectoryName(nav.Href), href);
+                href = Util.ZipResolvePath(Path.GetDirectoryName(nav.Href), a.Href);
             }
             else
             {
@@ -459,7 +456,6 @@ namespace Wuyu.Epub
 
         public bool SetConverHtml(string href)
         {
-            //TODO
             //if (Version[0] == '3')
             //{
             //    var nav = GetNav();
@@ -480,6 +476,37 @@ namespace Wuyu.Epub
             //{
             //    href = Package.Guide.SingleOrDefault(x => x.Type == "cover")?.Href;
             //}
+
+            if (Version[0] == '3')
+            {
+                var nav = GetNav();
+                if (nav == default) return false;
+
+                var coverGuide = Nav.NavGuide.FirstOrDefault(x => x.Type == "cover");
+                var path = Util.ZipRelativePath(Path.GetDirectoryName(nav.Href), href);
+                if (coverGuide == null)
+                {
+                    Nav.NavGuide.Add(new NavItem { Href = path, Type = "cover", Title = "封面" });
+                }
+                else
+                {
+                    coverGuide.Href = path;
+                }
+            }
+            else
+            {
+                // <reference type="cover" title="封面" href="Text/cover.xhtml"/>
+                var item = this.Package.Guide.SingleOrDefault(x => x.Href == href);
+                if (item == null)
+                {
+                    this.Package.Guide.Add(new GuideItem { Type = "cover", Title = "封面", Href = href });
+                }
+                else
+                {
+                    item.Type = "cover";
+                }
+            }
+
             return true;
         }
 
@@ -508,7 +535,7 @@ namespace Wuyu.Epub
             {
                 Package.Manifest.Add(new ManifestItem
                 {
-                    Href = "Text/cover.xhtml",
+                    Href = href,
                     ID = "cover.xhtml",
                     MediaType = MediaType[".xhtml"]
                 });
@@ -523,6 +550,25 @@ namespace Wuyu.Epub
                 streamWriter.Write(string.Format(Resources.cover, Util.ZipRelativePath("Text", item.Href)));
             }
 
+            if (Version[0] == '3')
+            {
+
+            }
+            else
+            {
+                // <reference type="cover" title="封面" href="Text/cover.xhtml"/>
+                var item = this.Package.Guide.SingleOrDefault(x => x.Href == href);
+                if (item == null)
+                {
+                    this.Package.Guide.Add(new GuideItem { Type = "cover", Title = "封面", Href = href });
+                }
+                else
+                {
+                    item.Type = "cover";
+                }
+            }
+
+            SetConverHtml(href);
             SetCoverImage(id);
         }
 
