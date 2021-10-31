@@ -550,24 +550,6 @@ namespace Wuyu.Epub
                 streamWriter.Write(string.Format(Resources.cover, Util.ZipRelativePath("Text", item.Href)));
             }
 
-            if (Version[0] == '3')
-            {
-
-            }
-            else
-            {
-                // <reference type="cover" title="封面" href="Text/cover.xhtml"/>
-                var item = this.Package.Guide.SingleOrDefault(x => x.Href == href);
-                if (item == null)
-                {
-                    this.Package.Guide.Add(new GuideItem { Type = "cover", Title = "封面", Href = href });
-                }
-                else
-                {
-                    item.Type = "cover";
-                }
-            }
-
             SetConverHtml(href);
             SetCoverImage(id);
         }
