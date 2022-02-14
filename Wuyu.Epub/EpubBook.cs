@@ -410,7 +410,7 @@ namespace Wuyu.Epub
         }
 
         /// <summary>
-        /// 返回Epub中可显示内容的迭代对象
+        /// 返回Epub中可显示内容的迭代对象，按顺序排列
         /// </summary>
         /// <returns></returns>
         public IEnumerable<string> GetTextIDs()
@@ -419,7 +419,7 @@ namespace Wuyu.Epub
         }
 
         /// <summary>
-        /// 返回Epub中所有HTML内容的迭代对象
+        /// 返回Epub中所有HTML内容的迭代对象，不一定按顺序
         /// </summary>
         /// <returns></returns>
         public IEnumerable<ManifestItem> GetHtmlItems() => GetItems(new[] { ".xhtml", ".html" });
@@ -513,6 +513,11 @@ namespace Wuyu.Epub
         public ManifestItem GetItemByHref(string href)
         {
             return Package.Manifest.SingleOrDefault(x => Path.Equals(href, x.Href));
+        }
+
+        public ManifestItem GetItemById(string id)
+        {
+            return Package.Manifest.SingleOrDefault(x => x.ID == id);
         }
 
         public void AddCoverImage(EpubItem item, bool createHtml = true)
@@ -822,8 +827,13 @@ namespace Wuyu.Epub
 
         public void Dispose()
         {
-            Dispose(disposing: true);
+            Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        ~EpubBook()
+        {
+            Dispose(true);
         }
     }
 }
