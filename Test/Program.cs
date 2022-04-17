@@ -38,8 +38,8 @@ namespace Test
             //    epub.SetItemContentByID(item.ID, doc.ToHtml(XhtmlMarkupFormatter.Instance));
             //}
             //epub.Dispose();
-
-            var path = @"D:\迅雷下载\1\漫画家被陌生女高中生监禁的故事.epub";
+             
+            var path = @"D:\迅雷下载\1\渴求游戏之神 04.epub";
             var outPaht = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_process.epub");
             var epub = EpubBook.ReadEpub(File.ReadAllBytes(path), new FileStream(outPaht, FileMode.Create), true);
 

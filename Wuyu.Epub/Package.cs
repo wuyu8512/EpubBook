@@ -75,7 +75,7 @@ namespace Wuyu.Epub
 
         public void Save(TextWriter stream)
         {
-            var xElement = Metadata.BaseElement.Element(EpubBook.DcNs+"rights");
+            var xElement = Metadata.BaseElement.Element(EpubBook.DcNs + "rights");
             if (xElement == null) Metadata.AddMetaDataItem(EpubBook.DcNs + "rights", "此Epub由Wuyu.Epub生成");
             else xElement.Value = "此Epub由Wuyu.Epub生成";
             BaseElement.Save(stream);

@@ -21,7 +21,7 @@ namespace Wuyu.Epub
 
         public static readonly XNamespace XHtmlNs = "http://www.w3.org/1999/xhtml";
 
-        public static readonly Dictionary<string, string> MediaType = new Dictionary<string, string>
+        public static readonly Dictionary<string, string> MediaType = new()
         {
             {
                 ".jpeg",
@@ -370,6 +370,23 @@ namespace Wuyu.Epub
             }
         }
 
+        public async Task SetItemDataByIDAsync(string id, byte[] data)
+        {
+            ManifestItem manifestItem;
+            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
+            {
+                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
+                var stream = entry?.Open();
+                if (stream != null)
+                {
+                    stream.SetLength(0);
+                    await stream.WriteAsync(data, 0, data.Length);
+                    stream.Flush();
+                    stream.Close();
+                }
+            }
+        }
+
         public byte[] GetItemDataByID(string id)
         {
             ManifestItem manifestItem;
@@ -381,6 +398,24 @@ namespace Wuyu.Epub
                 {
                     byte[] data = new byte[stream.Length];
                     stream.Read(data, 0, data.Length);
+                    stream.Close();
+                    return data;
+                }
+            }
+            return null;
+        }
+
+        public async Task<byte[]> GetItemDataByIDAsync(string id)
+        {
+            ManifestItem manifestItem;
+            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
+            {
+                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
+                var stream = entry?.Open();
+                if (stream != null)
+                {
+                    byte[] data = new byte[stream.Length];
+                    await stream.ReadAsync(data, 0, data.Length);
                     stream.Close();
                     return data;
                 }
@@ -456,27 +491,6 @@ namespace Wuyu.Epub
 
         public bool SetConverHtml(string href)
         {
-            //if (Version[0] == '3')
-            //{
-            //    var nav = GetNav();
-            //    if (nav == default) return false;
-            //    using var stream = GetItemStreamByID(nav.ID);
-
-            //    XElement element = XElement.Load(stream);
-            //    var a = element.Descendants(XHtmlNs + "a").SingleOrDefault(a => a.Attribute(EpubNs + "type")?.Value == "cover");
-            //    if (a == default)
-            //    {
-
-            //    }
-            //    href = a.Attribute("href")?.Value;
-
-            //    href = Util.ZipResolvePath(Path.GetDirectoryName(nav.Href), href);
-            //}
-            //else
-            //{
-            //    href = Package.Guide.SingleOrDefault(x => x.Type == "cover")?.Href;
-            //}
-
             if (Version[0] == '3')
             {
                 var nav = GetNav();
@@ -495,7 +509,6 @@ namespace Wuyu.Epub
             }
             else
             {
-                // <reference type="cover" title="封面" href="Text/cover.xhtml"/>
                 var item = this.Package.Guide.SingleOrDefault(x => x.Href == href);
                 if (item == null)
                 {
