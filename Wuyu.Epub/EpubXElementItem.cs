@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Linq;
 
 namespace Wuyu.Epub

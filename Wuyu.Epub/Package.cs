@@ -8,15 +8,15 @@ namespace Wuyu.Epub
 {
     public class Package
     {
-        public readonly Metadata Metadata;
+        public Metadata Metadata { get; private set; }
 
-        public readonly Spine Spine;
+        public Spine Spine { get; private set; }
 
-        public readonly Manifest Manifest;
+        public Manifest Manifest { get; private set; }
 
-        public readonly Guide Guide;
+        public Guide Guide { get; private set; }
 
-        public readonly XElement BaseElement;
+        public XElement BaseElement { get; private set; }
 
         public string Version
         {

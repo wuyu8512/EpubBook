@@ -14,36 +14,13 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
-            //foreach (var filePath in Directory.GetFiles(@"D:\迅雷下载\1\皇帝圣印战记(1)"))
-            //{
-            //    Console.WriteLine(filePath);
-            //    var epub = EpubBook.ReadEpub(File.ReadAllBytes(filePath),
-            //        new FileStream(filePath, FileMode.Create), true);
-            //    epub.Dispose();
-            //}
-
-            //var path = @"D:\迅雷下载\1\天才王子的赤字国家振兴术 05_对了，卖国吧_.epub";
-            //var parser = new HtmlParser();
-            //var epub = EpubBook.ReadEpub(File.ReadAllBytes(path), new FileStream(path, FileMode.Create));
-            //foreach (var item in epub.GetHtmlItems())
-            //{
-            //    var content = epub.GetItemContentByID(item.ID);
-            //    var doc = parser.ParseDocument(content);
-            //    foreach (var img in doc.QuerySelectorAll("img"))
-            //    {
-            //        img.RemoveAttribute("style");
-            //    }
-            //    epub.SetItemContentByID(item.ID, doc.ToHtml(XhtmlMarkupFormatter.Instance));
-            //}
-            //epub.Dispose();
+            var epub = EpubBook.ReadEpub(@"D:\迅雷下载\1\不吉波普系列 23.epub", new MemoryStream());
              
-            var path = @"D:\迅雷下载\1\渴求游戏之神 04.epub";
-            var outPaht = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_process.epub");
-            var epub = EpubBook.ReadEpub(File.ReadAllBytes(path), new FileStream(outPaht, FileMode.Create), true);
+            //var path = @"D:\迅雷下载\1\渴求游戏之神 04.epub";
+            //var outPaht = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_process.epub");
+            //var epub = EpubBook.ReadEpub(File.ReadAllBytes(path), new FileStream(outPaht, FileMode.Create), true);
 
-            epub.Dispose();
+            //epub.Dispose();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Wuyu.Epub
     {
         protected override XName ItemName { get; } = EpubBook.OpfNs + "itemref";
 
-        // EPub3
+        // EPub2 льсп
         public string Toc
         {
             get => BaseElement.Attribute("toc")?.Value;
