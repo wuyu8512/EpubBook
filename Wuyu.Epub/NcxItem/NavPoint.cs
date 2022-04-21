@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Wuyu.Epub.NcxItem
 {
-    public class NavPoint : EpubXElementItem
+    public class NavPoint : EpubXElement<NavPoint>
     {
         protected override XName ItemName => EpubBook.NcxNs + "navPoint";
 
@@ -52,15 +52,15 @@ namespace Wuyu.Epub.NcxItem
             }
         }
 
-        public NavPoint(XElement baseElement)
+        public NavPoint(XElement baseElement) : base(baseElement)
         {
-            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            BaseElement = baseElement;
+            //if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
+            //BaseElement = baseElement;
         }
 
-        public NavPoint()
+        public NavPoint() : base(EpubBook.NcxNs + "navPoint")
         {
-            BaseElement = new XElement(ItemName);
+            //BaseElement = new XElement(ItemName);
         }
     }
 }

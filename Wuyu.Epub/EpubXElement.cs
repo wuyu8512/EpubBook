@@ -10,7 +10,7 @@ namespace Wuyu.Epub
 {
     public abstract class EpubXElement<T> : EpubXElementItem, IList<T> where T : EpubXElementItem
     {
-        public int Count => BaseElement.Elements().Count();
+        public int Count => BaseElement.Elements(ItemName).Count();
         public bool IsReadOnly { get; } = false;
 
         public T this[int index]
@@ -31,7 +31,7 @@ namespace Wuyu.Epub
 
         public IEnumerator<T> GetEnumerator()
         {
-            return BaseElement.Elements().Select(item => (T)Activator.CreateInstance(typeof(T), item))
+            return BaseElement.Elements(ItemName).Select(item => (T)Activator.CreateInstance(typeof(T), item))
                 .GetEnumerator();
         }
 
@@ -48,20 +48,20 @@ namespace Wuyu.Epub
 
         public void Clear()
         {
-            BaseElement.Elements().ToList().ForEach(delegate (XElement element) { element.Remove(); });
+            BaseElement.Elements(ItemName).ToList().ForEach(delegate (XElement element) { element.Remove(); });
         }
 
         public bool Contains(T item)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-            return BaseElement.Elements().Any(element => element == item.BaseElement);
+            return BaseElement.Elements(ItemName).Any(element => element == item.BaseElement);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (array == null) throw new ArgumentNullException($"{nameof(array)}为0。");
             if (arrayIndex < 0) throw new ArgumentOutOfRangeException($"{nameof(arrayIndex)}小于 0。");
-            var elements = BaseElement.Elements().ToArray();
+            var elements = BaseElement.Elements(ItemName).ToArray();
             if (array.Length - arrayIndex < elements.Length)
                 throw new ArgumentException($"源 ICollection<{nameof(T)}> 中的元素个数大于从 arrayIndex 到目标 array 末尾之间的可用空间。");
             for (var j = 0; j < array.Length; j++)
@@ -73,7 +73,7 @@ namespace Wuyu.Epub
         public bool Remove(T item)
         {
             if (item == null) throw new ArgumentNullException(nameof(item));
-            var temp = BaseElement.Elements().SingleOrDefault(element => element == item.BaseElement);
+            var temp = BaseElement.Elements(ItemName).SingleOrDefault(element => element == item.BaseElement);
             if (temp == null) return false;
             temp.Remove();
             return true;

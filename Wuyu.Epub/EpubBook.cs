@@ -218,7 +218,7 @@ namespace Wuyu.Epub
 
         public static EpubBook ReadEpub(string filePath, Stream outStream, bool compatibleMode = false)
         {
-            return ReadEpub(new FileStream(filePath, FileMode.Open), outStream, compatibleMode);
+            return ReadEpub(new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read), outStream, compatibleMode);
         }
 
         public static EpubBook ReadEpub(byte[] data, Stream outStream, bool compatibleMode = false)

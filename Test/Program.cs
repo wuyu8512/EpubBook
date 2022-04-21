@@ -14,7 +14,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            var epub = EpubBook.ReadEpub(@"D:\迅雷下载\1\不吉波普系列 23.epub", new MemoryStream());
+            var epub = EpubBook.ReadEpub(@"D:\迅雷下载\轻小说-临时\三坪房间的侵略者！？ 36.epub", new MemoryStream());
              
             //var path = @"D:\迅雷下载\1\渴求游戏之神 04.epub";
             //var outPaht = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_process.epub");
