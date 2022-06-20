@@ -9,7 +9,15 @@
 	<PackageProjectUrl>https://github.com/wuyu8512/EpubBook</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/wuyu8512/EpubBook</RepositoryUrl>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
