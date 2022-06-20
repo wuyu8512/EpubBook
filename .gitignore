@@ -2,4 +2,5 @@
 obj/
 /.idea
 bin/
-/EpubBook.sln.DotSettings.user
+**/*.user
+PublishProfiles/
