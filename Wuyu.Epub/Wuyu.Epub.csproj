@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>9</LangVersion>
+	<Authors>wuyu</Authors>
+	<Description>一个简单的EPUB生成和读取工具</Description>
+	<Copyright>MT</Copyright>
+	<PackageProjectUrl>https://github.com/wuyu8512/EpubBook</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/wuyu8512/EpubBook</RepositoryUrl>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
