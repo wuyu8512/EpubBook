@@ -733,7 +733,7 @@ namespace Wuyu.Epub
             xDocument.Save(textWriter);
         }
 
-        public void UpDataNav()
+        public void UpdateNav()
         {
             var nav = GetNav();
             if (nav != null)
@@ -797,11 +797,6 @@ namespace Wuyu.Epub
                 str = manifestItem.Href;
             }
 
-            ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + str) ?? _epubZip.CreateEntry(OEBPS + str, CompressionLevel.Optimal);
-
-            using StreamWriter textWriter = new StreamWriter(entry.Open());
-            XDocument xDocument = XDocument.Parse(Resources.nav);
-            XElement xElement = xDocument.Root.Descendants(XHtmlNs + "ol").First();
             foreach (var item in GetTextIDs())
             {
                 if (item == "nav")
@@ -820,13 +815,9 @@ namespace Wuyu.Epub
                 };
                 if (!string.IsNullOrWhiteSpace(text) && !source.Contains(text))
                 {
-                    xElement.Add(new XElement(defaultNamespace + "li",
-                        new XElement(defaultNamespace + "a", text,
-                            new XAttribute("href", Path.GetFileName(entryName)))));
+                    this.Nav.Add(new NavItem { Href = Path.GetFileName(entryName), Title = text });
                 }
             }
-
-            xDocument.Save(textWriter);
         }
 
         private void Dispose(bool disposing)
