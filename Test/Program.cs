@@ -1,26 +1,16 @@
 ﻿using System;
-using System.IO;
-using System.Text;
+using System.Diagnostics;
 using Wuyu.Epub;
-using System.Xml.Linq;
-using AngleSharp.Html.Parser;
-using AngleSharp.Xhtml;
-using Test.Properties;
-using AngleSharp;
 
-namespace Test
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var epub = EpubBook.ReadEpub(@"D:\迅雷下载\轻小说-临时\三坪房间的侵略者！？ 36.epub", new MemoryStream());
-             
-            //var path = @"D:\迅雷下载\1\渴求游戏之神 04.epub";
-            //var outPaht = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_process.epub");
-            //var epub = EpubBook.ReadEpub(File.ReadAllBytes(path), new FileStream(outPaht, FileMode.Create), true);
 
-            //epub.Dispose();
-        }
-    }
-}
+var stopwatch = new Stopwatch();
+stopwatch.Restart();
+var epub = await EpubBook.ReadEpubAsync(@"F:\轻小说\Liberex - Test\library\魔女と傭兵.epub");
+
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+
+epub.Dispose();
+
+Console.WriteLine(stopwatch.ElapsedMilliseconds);
+
+Console.ReadLine();
