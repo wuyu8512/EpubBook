@@ -77,7 +77,7 @@ namespace Wuyu.Epub
 
         public string OEBPS { get; private set; }
 
-        private string Opf;
+        public string Opf { get; private set; }
 
         private bool _disposedValue;
 
