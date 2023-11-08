@@ -264,18 +264,27 @@ namespace Wuyu.Epub
             return entry?.Open();
         }
 
-        /// <summary>
-        /// 建议只读
-        /// </summary>
-        /// <param name="href"></param>
-        /// <returns></returns>
         public ZipArchiveEntry GetItemEntryByHref(string href)
         {
-            ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + href);
-            return entry;
+            return _epubZip.GetEntry(OEBPS + href);
         }
 
-        public string GetItemContentByID(string id, Encoding encoding = default)
+        public string GetItemContentByID(string id)
+        {
+            return GetItemContentByIDAsync(id).Result;
+        }
+
+        public string GetItemContentByID(string id, Encoding encoding)
+        {
+            return GetItemContentByIDAsync(id, encoding).Result;
+        }
+
+        public async ValueTask<string> GetItemContentByIDAsync(string id)
+        {
+            return await GetItemContentByIDAsync(id, Encoding.UTF8);
+        }
+
+        public async ValueTask<string> GetItemContentByIDAsync(string id, Encoding encoding)
         {
             ManifestItem manifestItem;
             if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
@@ -284,47 +293,29 @@ namespace Wuyu.Epub
                 var stream = entry?.Open();
                 if (stream != null)
                 {
-                    // todo encoding
-                    using var streamReader = new StreamReader(stream, encoding ?? Encoding.UTF8);
-                    return streamReader.ReadToEnd();
-                }
-            }
-            return null;
-        }
-
-        public async ValueTask<string> GetItemContentByIDAsync(string id, string encoding = "UTF-8")
-        {
-            ManifestItem manifestItem;
-            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
-            {
-                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
-                var stream = entry?.Open();
-                if (stream != null)
-                {
-                    using var streamReader = new StreamReader(stream, Encoding.GetEncoding(encoding));
+                    using var streamReader = new StreamReader(stream, encoding);
                     return await streamReader.ReadToEndAsync();
                 }
             }
             return null;
         }
 
-        public void SetItemContentByID(string id, string conetnt, string encoding = "UTF-8")
+        public void SetItemContentByID(string id, string conetnt)
         {
-            ManifestItem manifestItem;
-            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
-            {
-                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
-                var stream = entry?.Open();
-                if (stream != null)
-                {
-                    using var sw = new StreamWriter(stream, Encoding.GetEncoding(encoding));
-                    stream.SetLength(0);
-                    sw.Write(conetnt);
-                }
-            }
+            SetItemContentByIDAsync(id, conetnt).Wait();
         }
 
-        public async Task SetItemContentByIDAsync(string id, string conetnt, string encoding = "UTF-8")
+        public void SetItemContentByID(string id, string conetnt, Encoding encoding)
+        {
+            SetItemContentByIDAsync(id, conetnt, encoding).Wait();
+        }
+
+        public async Task SetItemContentByIDAsync(string id, string conetnt)
+        {
+            await SetItemContentByIDAsync(id, conetnt, Encoding.UTF8);
+        }
+
+        public async Task SetItemContentByIDAsync(string id, string conetnt, Encoding encoding)
         {
             ManifestItem manifestItem;
             if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
@@ -333,7 +324,7 @@ namespace Wuyu.Epub
                 var stream = entry?.Open();
                 if (stream != null)
                 {
-                    using var sw = new StreamWriter(stream, Encoding.GetEncoding(encoding));
+                    using var sw = new StreamWriter(stream, encoding);
                     stream.SetLength(0);
                     await sw.WriteAsync(conetnt);
                 }
@@ -342,19 +333,7 @@ namespace Wuyu.Epub
 
         public void SetItemDataByID(string id, byte[] data)
         {
-            ManifestItem manifestItem;
-            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
-            {
-                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
-                var stream = entry?.Open();
-                if (stream != null)
-                {
-                    stream.SetLength(0);
-                    stream.Write(data, 0, data.Length);
-                    stream.Flush();
-                    stream.Close();
-                }
-            }
+            SetItemDataByIDAsync(id, data).Wait();
         }
 
         public async Task SetItemDataByIDAsync(string id, byte[] data)
@@ -374,22 +353,21 @@ namespace Wuyu.Epub
             }
         }
 
+        public async Task<byte[]> ReadStreamAsync(Stream stream)
+        {
+            using var memoryStream = new MemoryStream();
+            byte[] buffer = new byte[81920];
+            int read;
+            while ((read = await stream.ReadAsync(buffer)) != 0)
+            {
+                await memoryStream.WriteAsync(buffer.AsMemory(0, read));
+            }
+            return memoryStream.ToArray();
+        }
+
         public byte[] GetItemDataByID(string id)
         {
-            ManifestItem manifestItem;
-            if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
-            {
-                ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
-                var stream = entry?.Open();
-                if (stream != null)
-                {
-                    byte[] data = new byte[stream.Length];
-                    stream.Read(data, 0, data.Length);
-                    stream.Close();
-                    return data;
-                }
-            }
-            return null;
+            return GetItemDataByIDAsync(id).Result;
         }
 
         public async ValueTask<byte[]> GetItemDataByIDAsync(string id)
@@ -398,44 +376,24 @@ namespace Wuyu.Epub
             if ((manifestItem = Package.Manifest.SingleOrDefault(i => i.ID == id)) != null)
             {
                 ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + manifestItem.Href);
-                var stream = entry?.Open();
-                if (stream != null)
-                {
-                    byte[] data = new byte[stream.Length];
-                    await stream.ReadAsync(data, 0, data.Length);
-                    stream.Close();
-                    return data;
-                }
+                if (entry == null) return null;
+                using var stream = entry.Open();
+                return await ReadStreamAsync(stream);
             }
             return null;
         }
 
         public byte[] GetItemDataByHref(string href)
         {
-            ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + href);
-            var stream = entry?.Open();
-            if (stream != null)
-            {
-                byte[] data = new byte[stream.Length];
-                stream.Read(data, 0, data.Length);
-                stream.Close();
-                return data;
-            }
-            return null;
+            return GetItemDataByHrefAsync(href).Result;
         }
 
         public async ValueTask<byte[]> GetItemDataByHrefAsync(string href)
         {
             ZipArchiveEntry entry = _epubZip.GetEntry(OEBPS + href);
-            var stream = entry?.Open();
-            if (stream != null)
-            {
-                byte[] data = new byte[stream.Length];
-                await stream.ReadAsync(data, 0, data.Length);
-                stream.Close();
-                return data;
-            }
-            return null;
+            if (entry == null) return null;
+            using var stream = entry.Open();
+            return await ReadStreamAsync(stream);
         }
 
         public Stream GetItemStreamByID(string id, out string entryName)
