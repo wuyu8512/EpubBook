@@ -7,18 +7,18 @@ namespace Wuyu.Epub
 {
     public class Metadata
     {
-        public XElement BaseElement { get; }
+        internal XElement _baseElement { get; }
 
         public string Identifier
         {
-            get => BaseElement.Elements(EpubBook.DcNs + "identifier").FirstOrDefault()?.Value;
+            get => _baseElement.Elements(EpubBook.DcNs + "identifier").FirstOrDefault()?.Value;
             set
             {
-                var xElement = BaseElement.Elements(EpubBook.DcNs + "identifier").FirstOrDefault();
+                var xElement = _baseElement.Elements(EpubBook.DcNs + "identifier").FirstOrDefault();
                 if (xElement == null)
                 {
                     xElement = new XElement(EpubBook.DcNs + "identifier", value, new XAttribute("id", "BookId"));
-                    BaseElement.AddFirst(xElement);
+                    _baseElement.AddFirst(xElement);
                 }
                 else
                 {
@@ -29,14 +29,14 @@ namespace Wuyu.Epub
 
         public string Title
         {
-            get => BaseElement.Elements(EpubBook.DcNs + "title").FirstOrDefault()?.Value;
+            get => _baseElement.Elements(EpubBook.DcNs + "title").FirstOrDefault()?.Value;
             set
             {
-                var xElement = BaseElement.Elements(EpubBook.DcNs + "title").FirstOrDefault();
+                var xElement = _baseElement.Elements(EpubBook.DcNs + "title").FirstOrDefault();
                 if (xElement == null)
                 {
                     xElement = new XElement(EpubBook.DcNs + "title", value);
-                    BaseElement.AddFirst(xElement);
+                    _baseElement.AddFirst(xElement);
                 }
                 else
                 {
@@ -47,14 +47,14 @@ namespace Wuyu.Epub
 
         public string Language
         {
-            get => BaseElement.Elements(EpubBook.DcNs + "language").FirstOrDefault()?.Value;
+            get => _baseElement.Elements(EpubBook.DcNs + "language").FirstOrDefault()?.Value;
             set
             {
-                var xElement = BaseElement.Elements(EpubBook.DcNs + "language").FirstOrDefault();
+                var xElement = _baseElement.Elements(EpubBook.DcNs + "language").FirstOrDefault();
                 if (xElement == null)
                 {
                     xElement = new XElement(EpubBook.DcNs + "language", value);
-                    BaseElement.AddFirst(xElement);
+                    _baseElement.AddFirst(xElement);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace Wuyu.Epub
                 var xElement = GetAuthor().FirstOrDefault();
                 if (xElement == null)
                 {
-                    BaseElement.AddFirst(new XElement(EpubBook.DcNs + "creator", value, new XAttribute("id", "cre")),
+                    _baseElement.AddFirst(new XElement(EpubBook.DcNs + "creator", value, new XAttribute("id", "cre")),
                         new XElement(EpubBook.OpfNs + "meta", "aut", new XAttribute("refines", "#cre"),
                             new XAttribute("property", "role")));
                 }
@@ -91,7 +91,7 @@ namespace Wuyu.Epub
                 if (xElement == null)
                 {
                     xElement = new XElement(EpubBook.DcNs + "creator", value);
-                    BaseElement.AddFirst(xElement);
+                    _baseElement.AddFirst(xElement);
                 }
                 else
                 {
@@ -103,19 +103,19 @@ namespace Wuyu.Epub
         public string Cover
         {
             get =>
-                (from e in BaseElement.Elements(EpubBook.OpfNs + "meta")
+                (from e in _baseElement.Elements(EpubBook.OpfNs + "meta")
                     where e.Attribute("name")?.Value == "cover"
                     select e).FirstOrDefault()?.Attribute("content")?.Value;
             set
             {
-                var xElement = (from e in BaseElement.Elements(EpubBook.OpfNs + "meta")
+                var xElement = (from e in _baseElement.Elements(EpubBook.OpfNs + "meta")
                     where e.Attribute("name")?.Value == "cover"
                     select e).FirstOrDefault();
                 if (xElement == null)
                 {
                     xElement = new XElement(EpubBook.OpfNs + "meta", new XAttribute("name", "cover"),
                         new XAttribute("content", value));
-                    BaseElement.Add(xElement);
+                    _baseElement.Add(xElement);
                 }
                 else
                 {
@@ -126,24 +126,24 @@ namespace Wuyu.Epub
 
         public Metadata(XElement element)
         {
-            BaseElement = element;
+            _baseElement = element;
         }
 
         public Metadata()
         {
-            BaseElement = new XElement(EpubBook.OpfNs + "metadata",
+            _baseElement = new XElement(EpubBook.OpfNs + "metadata",
                 new XAttribute(XNamespace.Xmlns + "dc", EpubBook.DcNs.NamespaceName));
         }
 
         public IEnumerable<XElement> GetMetaDataItem(XName name)
         {
-            return BaseElement.Elements(name);
+            return _baseElement.Elements(name);
         }
 
         private IEnumerable<XElement> GetAuthor()
         {
-            return from creator in BaseElement.Elements(EpubBook.DcNs + "creator")
-                join meta in BaseElement.Elements(EpubBook.OpfNs + "meta") on "#" + creator.Attribute("id")?.Value
+            return from creator in _baseElement.Elements(EpubBook.DcNs + "creator")
+                join meta in _baseElement.Elements(EpubBook.OpfNs + "meta") on "#" + creator.Attribute("id")?.Value
                     equals meta.Attribute("refines")?.Value
                 where meta.Value == "aut" && meta.Attribute("property")?.Value == "role"
                 select creator;
@@ -151,8 +151,8 @@ namespace Wuyu.Epub
 
         private IEnumerable<XElement> GetCreator()
         {
-            return from creator in BaseElement.Elements(EpubBook.DcNs + "creator")
-                   join meta in BaseElement.Elements(EpubBook.OpfNs + "meta") 
+            return from creator in _baseElement.Elements(EpubBook.DcNs + "creator")
+                   join meta in _baseElement.Elements(EpubBook.OpfNs + "meta") 
                    on "#" + creator.Attribute("id")?.Value equals meta.Attribute("refines")?.Value into metaGroup
                    from meta in metaGroup.DefaultIfEmpty()
                    where meta?.Value != "aut"
@@ -172,7 +172,7 @@ namespace Wuyu.Epub
                 }
             }
 
-            BaseElement.Add(xElement);
+            _baseElement.Add(xElement);
         }
     }
 }

@@ -11,28 +11,28 @@ namespace Wuyu.Epub.NcxItem
 
         public string Name
         {
-            get => BaseElement.Element(EpubBook.NcxNs + "text")?.Value;
+            get => _baseElement.Element(EpubBook.NcxNs + "text")?.Value;
             set
             {
-                var textElement = BaseElement.Element(EpubBook.NcxNs + "text");
+                var textElement = _baseElement.Element(EpubBook.NcxNs + "text");
                 if (textElement == null)
                 {
                     textElement = new XElement(EpubBook.NcxNs + "text");
-                    BaseElement.Add(textElement);
+                    _baseElement.Add(textElement);
                 }
                 textElement.Value = value;
             }
         }
 
-        public DocTitle(XElement baseElement)
+        public DocTitle(XElement element)
         {
-            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            BaseElement = baseElement;
+            if (element.Name != ItemName) throw new ArgumentException($"{nameof(element)}的名称应当为" + ItemName);
+            _baseElement = element;
         }
 
         public DocTitle()
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
     }
 }

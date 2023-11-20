@@ -5,32 +5,32 @@ using System.Xml.Linq;
 
 namespace Wuyu.Epub.NcxItem
 {
-    public class NavPoint : EpubXElement<NavPoint>
+    public class NavPoint : EpubXElementItem
     {
         protected override XName ItemName => EpubBook.NcxNs + "navPoint";
 
         public string ID
         {
-            get => BaseElement.Attribute("id")?.Value;
-            set => BaseElement.SetAttributeValue("id", value);
+            get => _baseElement.Attribute("id")?.Value;
+            set => _baseElement.SetAttributeValue("id", value);
         }
 
         public string PlayOrder
         {
-            get => BaseElement.Attribute("playOrder")?.Value;
-            set => BaseElement.SetAttributeValue("playOrder", value);
+            get => _baseElement.Attribute("playOrder")?.Value;
+            set => _baseElement.SetAttributeValue("playOrder", value);
         }
 
         public string Src
         {
-            get => BaseElement.Element(EpubBook.NcxNs + "content")?.Attribute("src")?.Value;
+            get => _baseElement.Element(EpubBook.NcxNs + "content")?.Attribute("src")?.Value;
             set
             {
-                var content = BaseElement.Element(EpubBook.NcxNs + "content");
+                var content = _baseElement.Element(EpubBook.NcxNs + "content");
                 if (content == null)
                 {
                     content = new XElement(EpubBook.NcxNs + "content");
-                    BaseElement.Add(content);
+                    _baseElement.Add(content);
                 }
                 content.SetAttributeValue("src", value);
             }
@@ -38,29 +38,29 @@ namespace Wuyu.Epub.NcxItem
 
         public string Text
         {
-            get => BaseElement.Element(EpubBook.NcxNs + "navLabel")?.Element(EpubBook.NcxNs + "text")?.Value;
+            get => _baseElement.Element(EpubBook.NcxNs + "navLabel")?.Element(EpubBook.NcxNs + "text")?.Value;
             set
             {
-                var lavel = BaseElement.Element(EpubBook.NcxNs + "navLabel");
+                var lavel = _baseElement.Element(EpubBook.NcxNs + "navLabel");
                 if (lavel == null)
                 {
                     lavel = new XElement(EpubBook.NcxNs + "content", new XElement(EpubBook.NcxNs + "text"));
-                    BaseElement.Add(lavel);
+                    _baseElement.Add(lavel);
                 }
                 // todo text 可能不存在
                 lavel.Element(EpubBook.NcxNs + "text").Value = value;
             }
         }
 
-        public NavPoint(XElement baseElement) : base(baseElement)
+        public NavPoint(XElement element)
         {
-            //if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            //BaseElement = baseElement;
+            if (element.Name != ItemName) throw new ArgumentException($"{nameof(element)}的名称应当为" + ItemName);
+            _baseElement = element;
         }
 
-        public NavPoint() : base(EpubBook.NcxNs + "navPoint")
+        public NavPoint()
         {
-            //BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
     }
 }

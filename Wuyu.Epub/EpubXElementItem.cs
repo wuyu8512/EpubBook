@@ -5,9 +5,9 @@ namespace Wuyu.Epub
 {
     public abstract class EpubXElementItem
     {
-        public XElement BaseElement { get; protected set; }
+        internal XElement _baseElement;
 
-        public void Remove() => BaseElement.Remove();
+        public void Remove() => _baseElement.Remove();
 
         protected abstract XName ItemName { get; }
     }

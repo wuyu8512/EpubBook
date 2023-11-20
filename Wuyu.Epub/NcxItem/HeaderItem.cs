@@ -11,25 +11,25 @@ namespace Wuyu.Epub.NcxItem
 
         public string Name
         {
-            get => BaseElement.Attribute("name")?.Value;
-            set => BaseElement.SetAttributeValue("name", value);
+            get => _baseElement.Attribute("name")?.Value;
+            set => _baseElement.SetAttributeValue("name", value);
         }
 
         public string Content
         {
-            get => BaseElement.Attribute("content")?.Value;
-            set => BaseElement.SetAttributeValue("content", value);
+            get => _baseElement.Attribute("content")?.Value;
+            set => _baseElement.SetAttributeValue("content", value);
         }
 
-        public HeaderItem(XElement baseElement)
+        public HeaderItem(XElement element)
         {
-            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            BaseElement = baseElement;
+            if (element.Name != ItemName) throw new ArgumentException($"{nameof(element)}的名称应当为" + ItemName);
+            _baseElement = element;
         }
 
         public HeaderItem()
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
     }
 }

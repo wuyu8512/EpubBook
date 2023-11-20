@@ -8,7 +8,7 @@ namespace Wuyu.Epub
 {
     public class Ncx
     {
-        public XElement BaseElement { get; private set; }
+        public XElement _baseElement;
 
         public Header Header { get; private set; }
         public DocTitle DocTitle { get; private set; }
@@ -18,38 +18,38 @@ namespace Wuyu.Epub
         public Ncx(string content)
         {
             var _document = XDocument.Parse(content);
-            BaseElement = _document.Root;
+            _baseElement = _document.Root;
 
             // header
             {
-                var header = BaseElement.Element(EpubBook.NcxNs + "head");
+                var header = _baseElement.Element(EpubBook.NcxNs + "head");
                 if (header != null) Header = new Header(header);
                 else
                 {
                     Header = new Header();
-                    BaseElement.Add(Header.BaseElement);
+                    _baseElement.Add(Header._baseElement);
                 }
             }
 
             // docTitle
             {
-                var docTitle = BaseElement.Element(EpubBook.NcxNs + "docTitle");
+                var docTitle = _baseElement.Element(EpubBook.NcxNs + "docTitle");
                 if (docTitle != null) DocTitle = new DocTitle(docTitle);
                 else
                 {
                     DocTitle = new DocTitle();
-                    BaseElement.Add(DocTitle.BaseElement);
+                    _baseElement.Add(DocTitle._baseElement);
                 }
             }
 
             // navMap
             {
-                var map = BaseElement.Element(EpubBook.NcxNs + "navMap");
+                var map = _baseElement.Element(EpubBook.NcxNs + "navMap");
                 if (map != null) NavMap = new NavMap(map);
                 else
                 {
                     NavMap = new NavMap();
-                    BaseElement.Add(NavMap.BaseElement);
+                    _baseElement.Add(NavMap._baseElement);
                 }
             }
         }

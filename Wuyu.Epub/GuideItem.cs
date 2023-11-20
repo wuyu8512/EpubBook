@@ -9,31 +9,31 @@ namespace Wuyu.Epub
 
         public string Type
         {
-            get => BaseElement.Attribute("type")?.Value;
-            set => BaseElement.SetAttributeValue("type", value);
+            get => _baseElement.Attribute("type")?.Value;
+            set => _baseElement.SetAttributeValue("type", value);
         }
 
         public string Title
         {
-            get => BaseElement.Attribute("title")?.Value;
-            set => BaseElement.SetAttributeValue("title", value);
+            get => _baseElement.Attribute("title")?.Value;
+            set => _baseElement.SetAttributeValue("title", value);
         }
 
         public string Href
         {
-            get => BaseElement.Attribute("href")?.Value;
-            set => BaseElement.SetAttributeValue("href", value);
+            get => _baseElement.Attribute("href")?.Value;
+            set => _baseElement.SetAttributeValue("href", value);
         }
 
-        public GuideItem(XElement baseElement)
+        public GuideItem(XElement element)
         {
-            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            BaseElement = baseElement;
+            if (element.Name != ItemName) throw new ArgumentException("Element的名称应当为" + ItemName);
+            _baseElement = element;
         }
 
         public GuideItem()
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
     }
 }

@@ -16,53 +16,53 @@ namespace Wuyu.Epub
 
         public Guide Guide { get; private set; }
 
-        public XElement BaseElement { get; private set; }
+        internal XElement _baseElement;
 
         public string Version
         {
-            get => BaseElement.Attribute("version")?.Value;
-            set => BaseElement.SetAttributeValue("version", value);
+            get => _baseElement.Attribute("version")?.Value;
+            set => _baseElement.SetAttributeValue("version", value);
         }
 
         public Package(string content)
         {
             var doc = XDocument.Parse(content);
-            BaseElement = doc.Root;
-            if (BaseElement == null) throw new ArgumentException("无法识别的内容");
+            _baseElement = doc.Root;
+            if (_baseElement == null) throw new ArgumentException("无法识别的内容");
 
             // Metadata
-            var xElement = BaseElement.Elements(EpubBook.OpfNs + "metadata").FirstOrDefault();
+            var xElement = _baseElement.Elements(EpubBook.OpfNs + "metadata").FirstOrDefault();
             if (xElement == null)
             {
                 Metadata = new Metadata();
-                BaseElement.Add(Metadata.BaseElement);
+                _baseElement.Add(Metadata._baseElement);
             }
             else Metadata = new Metadata(xElement);
 
             // Manifest
-            xElement = BaseElement.Elements(EpubBook.OpfNs + "manifest").FirstOrDefault();
+            xElement = _baseElement.Elements(EpubBook.OpfNs + "manifest").FirstOrDefault();
             if (xElement == null)
             {
                 Manifest = new Manifest();
-                BaseElement.Add(Manifest.BaseElement);
+                _baseElement.Add(Manifest._baseElement);
             }
             else Manifest = new Manifest(xElement);
 
             // Spine
-            xElement = BaseElement.Elements(EpubBook.OpfNs + "spine").FirstOrDefault();
+            xElement = _baseElement.Elements(EpubBook.OpfNs + "spine").FirstOrDefault();
             if (xElement == null)
             {
                 Spine = new Spine();
-                BaseElement.Add(Spine.BaseElement);
+                _baseElement.Add(Spine._baseElement);
             }
             else Spine = new Spine(xElement);
 
             //Guide
-            xElement = BaseElement.Elements(EpubBook.OpfNs + "guide").FirstOrDefault();
+            xElement = _baseElement.Elements(EpubBook.OpfNs + "guide").FirstOrDefault();
             if (xElement == null)
             {
                 Guide = new Guide();
-                BaseElement.Add(Guide.BaseElement);
+                _baseElement.Add(Guide._baseElement);
             }
             else Guide = new Guide(xElement);
         }
@@ -75,10 +75,10 @@ namespace Wuyu.Epub
 
         public void Save(TextWriter stream)
         {
-            var xElement = Metadata.BaseElement.Element(EpubBook.DcNs + "rights");
+            var xElement = Metadata._baseElement.Element(EpubBook.DcNs + "rights");
             if (xElement == null) Metadata.AddMetaDataItem(EpubBook.DcNs + "rights", "此Epub由Wuyu.Epub生成");
             else xElement.Value = "此Epub由Wuyu.Epub生成";
-            BaseElement.Save(stream);
+            _baseElement.Save(stream);
         }
     }
 }

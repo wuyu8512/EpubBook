@@ -11,14 +11,14 @@ namespace Wuyu.Epub
 
         public string Href
         {
-            get => BaseElement.Element(EpubBook.XHtmlNs + "a").Attribute("href").Value;
+            get => _baseElement.Element(EpubBook.XHtmlNs + "a").Attribute("href").Value;
             set
             {
-                var a = BaseElement.Element(EpubBook.XHtmlNs + "a");
+                var a = _baseElement.Element(EpubBook.XHtmlNs + "a");
                 if (a == null)
                 {
                     a = new XElement(EpubBook.XHtmlNs + "a");
-                    BaseElement.Add(a);
+                    _baseElement.Add(a);
                 }
                 a.SetAttributeValue("href", value);
             }
@@ -26,14 +26,14 @@ namespace Wuyu.Epub
 
         public string Title
         {
-            get => BaseElement.Element(EpubBook.XHtmlNs + "a").Value;
+            get => _baseElement.Element(EpubBook.XHtmlNs + "a").Value;
             set
             {
-                var a = BaseElement.Element(EpubBook.XHtmlNs + "a");
+                var a = _baseElement.Element(EpubBook.XHtmlNs + "a");
                 if (a == null)
                 {
                     a = new XElement(EpubBook.XHtmlNs + "a");
-                    BaseElement.Add(a);
+                    _baseElement.Add(a);
                 }
                 a.Value = value;
             }
@@ -41,14 +41,14 @@ namespace Wuyu.Epub
 
         public string Type
         {
-            get => BaseElement.Element(EpubBook.XHtmlNs + "a").Attribute(EpubBook.EpubNs + "type").Value;
+            get => _baseElement.Element(EpubBook.XHtmlNs + "a").Attribute(EpubBook.EpubNs + "type").Value;
             set
             {
-                var a = BaseElement.Element(EpubBook.XHtmlNs + "a");
+                var a = _baseElement.Element(EpubBook.XHtmlNs + "a");
                 if (a == null)
                 {
                     a = new XElement(EpubBook.XHtmlNs + "a");
-                    BaseElement.Add(a);
+                    _baseElement.Add(a);
                 }
                 a.SetAttributeValue(EpubBook.EpubNs + "type", value);
             }
@@ -56,12 +56,12 @@ namespace Wuyu.Epub
 
         public NavItem(XElement element)
         {
-            BaseElement = element;
+            _baseElement = element;
         }
 
         public NavItem()
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
     }
 }

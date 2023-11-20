@@ -11,31 +11,31 @@ namespace Wuyu.Epub
 
         public string ID
         {
-            get => BaseElement.Attribute("id")?.Value;
-            set => BaseElement.SetAttributeValue("id", value);
+            get => _baseElement.Attribute("id")?.Value;
+            set => _baseElement.SetAttributeValue("id", value);
         }
 
         public string Href
         {
-            get => BaseElement.Attribute("href")?.Value;
-            set => BaseElement.SetAttributeValue("href", value);
+            get => _baseElement.Attribute("href")?.Value;
+            set => _baseElement.SetAttributeValue("href", value);
         }
 
         public string MediaType
         {
-            get => BaseElement.Attribute("media-type")?.Value;
-            set => BaseElement.SetAttributeValue("media-type", value);
+            get => _baseElement.Attribute("media-type")?.Value;
+            set => _baseElement.SetAttributeValue("media-type", value);
         }
 
         // EPub3
         public bool IsCover
         {
-            get => BaseElement.Attribute("properties")?.Value == "cover-image";
+            get => _baseElement.Attribute("properties")?.Value == "cover-image";
             set
             {
                 if (IsCover)
                 {
-                    BaseElement.SetAttributeValue("properties", "cover-image");
+                    _baseElement.SetAttributeValue("properties", "cover-image");
                 }
             }
         }
@@ -43,33 +43,33 @@ namespace Wuyu.Epub
         // EPub3
         public bool IsNav
         {
-            get => BaseElement.Attribute("properties")?.Value == "nav";
+            get => _baseElement.Attribute("properties")?.Value == "nav";
             set
             {
                 if (value)
                 {
-                    BaseElement.SetAttributeValue("properties", "nav");
+                    _baseElement.SetAttributeValue("properties", "nav");
                 }
             }
         }
 
         public ManifestItem()
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
 
         public ManifestItem(string id, string href)
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
             ID = id;
             Href = href;
             MediaType = EpubBook.MediaType[Path.GetExtension(href)];
         }
 
-        public ManifestItem(XElement baseElement)
+        public ManifestItem(XElement element)
         {
-            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            BaseElement = baseElement;
+            if (element.Name != ItemName) throw new ArgumentException($"{nameof(element)}的名称应当为" + ItemName);
+            _baseElement = element;
         }
     }
 }

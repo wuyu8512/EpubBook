@@ -9,24 +9,24 @@ namespace Wuyu.Epub
 
         public string IdRef
         {
-            get => BaseElement.Attribute("idref")?.Value;
-            set => BaseElement.SetAttributeValue("idref", value);
+            get => _baseElement.Attribute("idref")?.Value;
+            set => _baseElement.SetAttributeValue("idref", value);
         }
 
-        public SpineItem(XElement baseElement)
+        public SpineItem(XElement element)
         {
-            if (baseElement.Name != ItemName) throw new ArgumentException("baseElement的名称应当为" + ItemName);
-            BaseElement = baseElement;
+            if (element.Name != ItemName) throw new ArgumentException($"{nameof(element)}的名称应当为" + ItemName);
+            _baseElement = element;
         }
 
         public SpineItem()
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
         }
 
         public SpineItem(string idRef)
         {
-            BaseElement = new XElement(ItemName);
+            _baseElement = new XElement(ItemName);
             this.IdRef = idRef;
         }
     }

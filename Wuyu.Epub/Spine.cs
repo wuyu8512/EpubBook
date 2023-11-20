@@ -13,11 +13,11 @@ namespace Wuyu.Epub
         // EPub2 льсп
         public string Toc
         {
-            get => BaseElement.Attribute("toc")?.Value;
-            set => BaseElement.SetAttributeValue("toc", value);
+            get => _baseElement.Attribute("toc")?.Value;
+            set => _baseElement.SetAttributeValue("toc", value);
         }
 
-        internal Spine(XElement baseElement) : base(baseElement)
+        internal Spine(XElement element) : base(element)
         {
         }
 
